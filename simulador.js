@@ -614,10 +614,10 @@ function renderCTAs(perfil) {
             <i data-lucide="rocket"></i>
             Activa tu futuro con Skandia
           </button>
-          <a href="#" class="btn btn--secondary">
+          <button type="button" class="btn btn--secondary">
             Explorar más opciones
             <i data-lucide="arrow-right"></i>
-          </a>
+          </button>
         </div>
       </div>
     `;
