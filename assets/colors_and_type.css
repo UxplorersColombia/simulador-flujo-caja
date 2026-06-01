@@ -1,0 +1,375 @@
+/* ============================================================================
+   Skandia Design System — colors_and_type.css
+   ----------------------------------------------------------------------------
+   Consolidates the Skandia tokens (primitives + semantics + type) into a
+   single, drop-in CSS file. Import once at the top of any page or app:
+
+       <link rel="stylesheet" href="colors_and_type.css">
+
+   Source: https://github.com/UxplorersColombia/SkCo.Fidu.DesignSystem.Lib.UX
+   Files merged: Tokens/{primitive-color, primitive-size, semantic-color,
+   size-&-spacing, typeface-baseline, typescale-baseline, typography-base}.css
+   ============================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+/* NOTE: PrimeIcons must be loaded via a separate <link> tag in each HTML head.
+   Loading it via @import here breaks the relative URLs inside its @font-face. */
+
+/* ── Primitive: color ────────────────────────────────────────────────────── */
+:root {
+  /* Primary — Verde Skandia */
+  --primary-d04: #006e22;
+  --primary-d03: #007c26;
+  --primary-d02: #009a2f;
+  --primary-d01: #03a835;
+  --primary-00:  #00c73d;
+  --primary-l01: #1dd64c;
+  --primary-l02: #47e264;
+  --primary-l03: #5fed73;
+  --primary-l04: #caf9cb;
+  --primary-l05: #f6fcf2;
+
+  /* Primary Grey — Negro/textos */
+  --primarygrey-d05: #000000;
+  --primarygrey-d04: #232323;
+  --primarygrey-d03: #2c2c2c;
+  --primarygrey-d02: #323232;
+  --primarygrey-d01: #363636;
+  --primarygrey-00:  #404040;
+  --primarygrey-l01: #444444;
+  --primarygrey-l02: #565656;
+  --primarygrey-l03: #666666;
+  --primarygrey-l04: #878787;
+  --primarygrey-l05: #a5a5a5;
+
+  /* Secondary green complementary — Verde lima */
+  --secondarygreencomplementary-d04: #487000;
+  --secondarygreencomplementary-d03: #629a00;
+  --secondarygreencomplementary-d02: #6ba800;
+  --secondarygreencomplementary-d01: #7dc400;
+  --secondarygreencomplementary-00:  #8fe000;
+  --secondarygreencomplementary-l01: #a5e633;
+  --secondarygreencomplementary-l02: #bbec65;
+  --secondarygreencomplementary-l03: #d2f298;
+  --secondarygreencomplementary-l04: #ddf6b1;
+  --secondarygreencomplementary-l05: #f3fce3;
+
+  /* Secondary blue complementary — Teal (Fiduciaria) */
+  --secondarybluecomplementary-d05: #1d594c;
+  --secondarybluecomplementary-d04: #29806d;
+  --secondarybluecomplementary-d03: #39b398;
+  --secondarybluecomplementary-d02: #42ccae;
+  --secondarybluecomplementary-d01: #4ae6c3;
+  --secondarybluecomplementary-00:  #52ffd9;
+  --secondarybluecomplementary-l01: #76fee0;
+  --secondarybluecomplementary-l02: #76fee0;
+  --secondarybluecomplementary-l03: #bbfdee;
+  --secondarybluecomplementary-l04: #ccfdf2;
+  --secondarybluecomplementary-l05: #edfefa;
+
+  /* Neutrals — Fondos y bordes */
+  --neutral-00:  #ffffff;
+  --neutral-l01: #fafafa;
+  --neutral-l02: #f7f7f7;
+  --neutral-l03: #e9e9e9;
+  --neutral-l04: #dddddd;
+  --neutral-l05: #c5c5c5;
+  --neutral-l06: #b7b7b7;
+
+  /* Feedback */
+  --feedback-success-light:  #ecfdf3;
+  --feedback-success-medium: #87f491;
+  --feedback-success-dark:   #16d727;
+  --feedback-warning-light:  #fff3e0;
+  --feedback-warning-dark:   #ffae08;
+  --feedback-info-light:     #ebf4ff;
+  --feedback-info-dark:      #0099de;
+  --feedback-error-light:    #fff5f4;
+  --feedback-error-dark:     #e03430;
+  --feedback-standby-light:  #f5f5f5;
+  --feedback-standby-dark:   #444444;
+
+  /* Illustration accents */
+  --illustration-01: #00f0e0;
+  --illustration-02: #45e39e;
+  --illustration-03: #45ad00;
+  --illustration-04: #ffae08;
+}
+
+/* ── Primitive: size ─────────────────────────────────────────────────────── */
+:root {
+  --size-000: 0px;
+  --size-004: 4px;
+  --size-008: 8px;
+  --size-012: 12px;
+  --size-016: 16px;
+  --size-024: 24px;
+  --size-032: 32px;
+  --size-040: 40px;
+  --size-048: 48px;
+  --size-056: 56px;
+  --size-064: 64px;
+  --size-072: 72px;
+  --size-080: 80px;
+  --size-088: 88px;
+  --size-096: 96px;
+  --size-104: 104px;
+  --size-112: 112px;
+  --size-120: 120px;
+  --size-128: 128px;
+}
+
+/* ── Spacing / radius scale ──────────────────────────────────────────────── */
+:root {
+  --size-zero: var(--size-000);
+  --size-xxs:  var(--size-004);
+  --size-xs:   var(--size-008);
+  --size-s:    var(--size-012);
+  --size-m:    var(--size-016);
+  --size-l:    var(--size-024);
+  --size-xl:   var(--size-032);
+  --size-2xl:  var(--size-040);
+  --size-3xl:  var(--size-048);
+  --size-4xl:  var(--size-056);
+  --size-5xl:  var(--size-064);
+
+  /* Border radius — Skandia pill (xl), Fiduciaria square (s) */
+  --bordes-s:  var(--size-004);   /* 4px  — Fiduciaria buttons */
+  --bordes-m:  var(--size-016);   /* 16px — cards */
+  --bordes-l:  var(--size-032);   /* 32px */
+  --bordes-xl: var(--size-104);   /* 104px — Skandia pill buttons */
+  --bordes-pill: 100px;
+
+  /* Grid & breakpoints */
+  --breakpoint-mobile: 768px;
+  --breakpoint-tablet: 1024px;
+  --grid-mobile-columns: 4;
+  --grid-mobile-gutter:  var(--size-m);
+  --grid-mobile-margin:  var(--size-m);
+  --grid-tablet-columns: 8;
+  --grid-tablet-gutter:  var(--size-l);
+  --grid-tablet-margin:  var(--size-xl);
+  --grid-desktop-columns: 12;
+  --grid-desktop-gutter:  var(--size-l);
+  --grid-desktop-margin:  90px;
+}
+
+/* ── Semantic: color ─────────────────────────────────────────────────────── */
+:root {
+  /* Texts */
+  --texts-white:        var(--neutral-00);
+  --texts-light:        var(--primarygrey-l05);   /* placeholders */
+  --texts-medium:       var(--primarygrey-l03);   /* secondary copy */
+  --texts-dark:         var(--primarygrey-00);    /* body copy */
+  --texts-brand:        var(--primary-00);
+  --texts-fiduciaria:   var(--secondarybluecomplementary-d04);
+  --texts-complementary:var(--secondarybluecomplementary-d01);
+  --texts-link:         var(--feedback-info-dark);
+  --texts-error:        var(--feedback-error-dark);
+
+  /* Icons */
+  --icon-disable:    var(--primarygrey-l05);
+  --icon-neutral:    var(--primarygrey-00);       /* default */
+  --icon-neutral-2:  var(--primarygrey-l03);
+  --icon-link:       var(--feedback-info-dark);
+  --icon-white:      var(--neutral-00);
+  --icon-brand:      var(--primary-00);           /* Skandia hover */
+  --icon-fiduciaria: var(--secondarybluecomplementary-d04); /* Fiduciaria hover */
+  --icon-success:    var(--feedback-success-dark);
+  --icon-warning:    var(--feedback-warning-dark);
+  --icon-error:      var(--feedback-error-dark);
+
+  /* Buttons */
+  --button-brand-default:           var(--primary-00);
+  --button-brand-hover:             var(--primary-d01);
+  --button-brand-secondary-hover:   var(--primary-l04);
+  --button-brand-tertiary-hover:    var(--primary-l05);
+  --button-fiduciaria-default:      var(--secondarybluecomplementary-d04);
+  --button-fiduciaria-hover:        var(--secondarybluecomplementary-d05);
+  --button-fiduciaria-secondary-hover: var(--secondarybluecomplementary-l04);
+  --button-fiduciaria-tertiary-hover:  var(--secondarybluecomplementary-l05);
+  --button-disable: var(--neutral-l03);
+
+  /* Backgrounds */
+  --background-principal:      var(--neutral-00);   /* Skandia base */
+  --background-fiduciaria:     var(--neutral-l02);  /* Fiduciaria base */
+  --background-grey-light:     var(--neutral-l02);
+  --background-grey-medium:    var(--neutral-l06);
+  --background-grey-dark:      var(--primarygrey-00);
+  --background-black:          var(--primarygrey-d04);
+  --background-brand:          var(--primary-00);
+  --background-brand-light:    var(--primary-l05);
+  --background-success-light:  var(--feedback-success-light);
+  --background-success-medium: var(--feedback-success-medium);
+  --background-success-dark:   var(--feedback-success-dark);
+  --background-warning-dark:   var(--feedback-warning-dark);
+  --background-warning-light:  var(--feedback-warning-light);
+  --background-info-dark:      var(--feedback-info-dark);
+  --background-info-light:     var(--feedback-info-light);
+  --background-error-dark:     var(--feedback-error-dark);
+  --background-error-light:    var(--feedback-error-light);
+
+  /* Strokes */
+  --stroke-brand:        var(--primary-00);
+  --stroke-fiduciaria:   var(--secondarybluecomplementary-d04);
+  --stroke-grey-light:   var(--neutral-l04);
+  --stroke-grey-medium:  var(--neutral-l05);
+  --stroke-grey-dark:    var(--primarygrey-l03);
+  --stroke-success:      var(--feedback-success-dark);
+  --stroke-warning:      var(--feedback-warning-dark);
+  --stroke-info:         var(--feedback-info-dark);
+  --stroke-error-dark:   var(--feedback-error-dark);
+
+  /* Signature gradient */
+  --estilos-degrade: linear-gradient(135deg, var(--primary-00), var(--secondarygreencomplementary-00));
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 32px -8px rgba(0, 0, 0, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.06);
+  --shadow-focus: 0 0 0 3px color-mix(in srgb, var(--primary-00), transparent 70%);
+}
+
+/* ── Typeface baseline ───────────────────────────────────────────────────── */
+:root {
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-bold:    700;
+  --title: 'Montserrat';
+  --body:  'Open Sans';
+}
+
+/* ── Type scale (selected key tokens) ────────────────────────────────────── */
+:root {
+  /* H1 32 — page title (Skandia only; Fiduciaria starts at H2) */
+  --page-title-h1-bold-32px-size:        2rem;       /* 32px */
+  --page-title-h1-bold-32px-line-height: 2.5rem;     /* 40px */
+  --page-title-h1-bold-32px-weight:      700;
+
+  /* H2 24 — section title */
+  --section-title-h2-bold-24px-size:        1.5rem;  /* 24px */
+  --section-title-h2-bold-24px-line-height: 2rem;    /* 32px */
+  --section-title-h2-bold-24px-weight:      700;
+
+  /* H3 20 — subsection title */
+  --subsection-title-h3-bold-20px-size:        1.25rem;  /* 20px */
+  --subsection-title-h3-bold-20px-line-height: 1.75rem;  /* 28px */
+  --subsection-title-h3-bold-20px-weight:      700;
+
+  /* H4 18 — supporting title */
+  --supporting-title-h4-bold-18px-size:        1.125rem; /* 18px */
+  --supporting-title-h4-bold-18px-line-height: 1.625rem; /* 26px */
+  --supporting-title-h4-bold-18px-weight:      700;
+
+  /* H5 16 — meta title */
+  --meta-title-h5-bold-16-px-size:        1rem;          /* 16px */
+  --meta-title-h5-bold-16-px-line-height: 1.5rem;        /* 24px */
+  --meta-title-h5-bold-16-px-weight:      700;
+
+  /* H6 14 — auxiliary title */
+  --auxiliary-title-h6-bold-14px-size:        0.875rem;  /* 14px */
+  --auxiliary-title-h6-bold-14px-line-height: 1.375rem;  /* 22px */
+  --auxiliary-title-h6-bold-14px-weight:      700;
+
+  /* Body */
+  --body-medium-size:        1rem;           /* 16px */
+  --body-medium-line-height: 1.5rem;         /* 24px */
+  --body-medium-weight:      500;
+  --body-bold-weight:        700;
+
+  /* Labels */
+  --label-medium-size:        0.875rem;      /* 14px */
+  --label-medium-line-height: 1.375rem;      /* 22px */
+  --label-medium-weight:      500;
+  --label-bold-weight:        700;
+
+  /* Caption */
+  --caption-body-3-size:        0.75rem;     /* 12px */
+  --caption-body-3-line-height: 1.25rem;     /* 20px */
+  --caption-body-3-weight:      500;
+}
+
+/* ── HTML element styles (low specificity — use :where) ──────────────────── */
+:where(html) {
+  font-family: var(--body), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--texts-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+:where(body) { margin: 0; font-family: inherit; color: inherit; }
+
+:where(h1) {
+  font-family: var(--title), 'Montserrat', sans-serif;
+  font-weight: var(--page-title-h1-bold-32px-weight);
+  font-size: var(--page-title-h1-bold-32px-size);
+  line-height: var(--page-title-h1-bold-32px-line-height);
+  color: var(--texts-dark);
+  margin: 0;
+}
+:where(h2) {
+  font-family: var(--title), 'Montserrat', sans-serif;
+  font-weight: var(--section-title-h2-bold-24px-weight);
+  font-size: var(--section-title-h2-bold-24px-size);
+  line-height: var(--section-title-h2-bold-24px-line-height);
+  color: var(--texts-dark);
+  margin: 0;
+}
+:where(h3) {
+  font-family: var(--title), 'Montserrat', sans-serif;
+  font-weight: var(--subsection-title-h3-bold-20px-weight);
+  font-size: var(--subsection-title-h3-bold-20px-size);
+  line-height: var(--subsection-title-h3-bold-20px-line-height);
+  color: var(--texts-dark);
+  margin: 0;
+}
+:where(h4) {
+  font-family: var(--title), 'Montserrat', sans-serif;
+  font-weight: var(--supporting-title-h4-bold-18px-weight);
+  font-size: var(--supporting-title-h4-bold-18px-size);
+  line-height: var(--supporting-title-h4-bold-18px-line-height);
+  color: var(--texts-dark);
+  margin: 0;
+}
+:where(h5) {
+  font-family: var(--title), 'Montserrat', sans-serif;
+  font-weight: var(--meta-title-h5-bold-16-px-weight);
+  font-size: var(--meta-title-h5-bold-16-px-size);
+  line-height: var(--meta-title-h5-bold-16-px-line-height);
+  color: var(--texts-dark);
+  margin: 0;
+}
+:where(h6) {
+  font-family: var(--title), 'Montserrat', sans-serif;
+  font-weight: var(--auxiliary-title-h6-bold-14px-weight);
+  font-size: var(--auxiliary-title-h6-bold-14px-size);
+  line-height: var(--auxiliary-title-h6-bold-14px-line-height);
+  color: var(--texts-dark);
+  margin: 0;
+}
+:where(p) {
+  font-family: var(--body), 'Open Sans', sans-serif;
+  font-weight: var(--body-medium-weight);
+  font-size: var(--body-medium-size);
+  line-height: var(--body-medium-line-height);
+  color: var(--texts-dark);
+  margin: 0;
+}
+:where(label) {
+  font-family: var(--body), 'Open Sans', sans-serif;
+  font-weight: var(--label-medium-weight);
+  font-size: var(--label-medium-size);
+  line-height: var(--label-medium-line-height);
+  color: var(--texts-medium);
+}
+:where(small) {
+  font-family: var(--body), 'Open Sans', sans-serif;
+  font-weight: var(--caption-body-3-weight);
+  font-size: var(--caption-body-3-size);
+  line-height: var(--caption-body-3-line-height);
+  color: var(--texts-medium);
+}
+:where(strong), :where(b) { font-weight: var(--weight-bold); }
+:where(a) { color: var(--texts-link); text-decoration: none; }
+:where(a:hover) { text-decoration: underline; }

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Flujo de Caja · Skandia</title>
+<link rel="icon" type="image/svg+xml" href="assets/isotipo-simple-verde.svg">
+<link rel="stylesheet" href="assets/colors_and_type.css">
+<link rel="stylesheet" href="simulador.css">
+<script src="https://unpkg.com/lucide@0.453.0/dist/umd/lucide.min.js"></script>
+</head>
+<body data-channel="cliente" data-perfil="auto">
+
+<!-- ══════════════════════════════════════════════
+     CHROME · HEADER (cambia por canal)
+════════════════════════════════════════════════ -->
+
+<!-- Header CLIENTE: portal logueado (sidebar + topbar) -->
+<aside class="sidebar" aria-label="Menú principal" style="border-radius: 0px">
+  <button class="sidebar__menu" aria-label="Abrir menú">
+    <i data-lucide="menu"></i>
+  </button>
+  <nav class="sidebar__nav" aria-label="Navegación">
+    <a href="#" class="sidebar__item">
+      <i data-lucide="home"></i>
+      <span>Inicio</span>
+    </a>
+    <a href="#" class="sidebar__item">
+      <i data-lucide="refresh-cw"></i>
+      <span>Transacciones</span>
+    </a>
+    <a href="#" class="sidebar__item">
+      <i data-lucide="pie-chart"></i>
+      <span>Inversiones</span>
+    </a>
+    <a href="#" class="sidebar__item">
+      <i data-lucide="file-text"></i>
+      <span>Documentos</span>
+    </a>
+    <a href="#" class="sidebar__item">
+      <i data-lucide="help-circle"></i>
+      <span>Ayuda</span>
+    </a>
+  </nav>
+  <a href="#" class="sidebar__item sidebar__item--logout">
+    <i data-lucide="log-in" style="transform:scaleX(-1)"></i>
+    <span>Salir</span>
+  </a>
+</aside>
+
+<header class="topbar" aria-label="Barra superior">
+  <a class="topbar__brand" href="#" aria-label="Skandia">
+    <img src="assets/isotipo-simple-verde.svg" alt="Skandia" height="32">
+  </a>
+  <div class="topbar__spacer"></div>
+  <button type="button" class="topbar__actions">
+    <i data-lucide="zap" class="topbar__actions-ico"></i>
+    Acciones rápidas
+    <i data-lucide="chevron-down"></i>
+  </button>
+  <button type="button" class="topbar__user">
+    <span class="topbar__avatar" id="chrome-avatar">JA</span>
+    <span class="topbar__greeting">Hola, <strong id="chrome-user-name">Javier</strong> <span class="topbar__wave" aria-hidden="true">👋</span></span>
+    <i data-lucide="chevron-down"></i>
+  </button>
+</header>
+
+<!-- Header PÚBLICO: sitio web Skandia -->
+<header class="chrome chrome--publico" aria-label="Skandia Colombia">
+  <div class="chrome__inner">
+    <a class="chrome__brand" href="#" aria-label="Skandia">
+      <img src="assets/logo-color.svg" alt="Skandia" height="24">
+    </a>
+    <nav class="chrome__nav" aria-label="Navegación principal">
+      <a href="#" class="chrome__link">Productos</a>
+      <a href="#" class="chrome__link">Asesoría</a>
+      <a href="#" class="chrome__link chrome__link--active">Herramientas</a>
+      <a href="#" class="chrome__link">Sobre Skandia</a>
+    </nav>
+    <div class="chrome__right">
+      <a href="#" class="chrome__link chrome__link--small">
+        <i data-lucide="log-in"></i>Iniciar sesión
+      </a>
+      <button class="btn btn--secondary btn--small">Regístrate</button>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════
+     PAGE · SHELL ENVOLVENTE
+════════════════════════════════════════════════ -->
+<div class="page-shell">
+
+  <!-- Breadcrumb (solo Cliente) -->
+  <nav class="breadcrumb" aria-label="Ubicación">
+    <a href="#" class="breadcrumb__back" aria-label="Volver a Inicio" onclick="irAtras(); return false;">
+      <i data-lucide="arrow-left"></i>
+    </a>
+    <a href="#" class="breadcrumb__crumb">Inicio</a>
+    <span class="breadcrumb__sep">/</span>
+    <a href="#" class="breadcrumb__crumb">Simuladores</a>
+    <span class="breadcrumb__sep">/</span>
+    <span class="breadcrumb__current" aria-current="page">Flujo de caja</span>
+  </nav>
+
+  <!-- Card container (mobile-first, 480px) -->
+  <div class="frame">
+
+    <!-- ══════════════════════════════════════════════
+         PANTALLA 0 — ENTRADA
+    ════════════════════════════════════════════════ -->
+    <section class="screen screen--active" id="s-entrada" data-screen-label="01 Entrada">
+
+      <div class="entrada anim-in">
+
+        <!-- Hero ring -->
+        <div class="hero" aria-hidden="true">
+          <div class="hero__ring hero__ring--outer"></div>
+          <div class="hero__ring hero__ring--inner"></div>
+          <div class="hero__core">
+            <i data-lucide="pie-chart"></i>
+          </div>
+          <span class="hero__chip">2 min</span>
+        </div>
+
+        <!-- Titular -->
+        <div class="entrada__head">
+          <h1 class="entrada__title">¿A dónde va tu plata cada mes?</h1>
+          <p class="entrada__sub">
+            Descubre tu situación financiera real en 2 pasos y conoce qué puedes hacer para mejorarla.
+          </p>
+        </div>
+
+        <!-- Beneficios -->
+        <ul class="benefits" aria-label="Qué puedes esperar">
+          <li class="benefit">
+            <span class="benefit__icon"><i data-lucide="shield"></i></span>
+            <span class="benefit__text">Tu información es privada y no se almacena.</span>
+          </li>
+          <li class="benefit">
+            <span class="benefit__icon"><i data-lucide="zap"></i></span>
+            <span class="benefit__text">Resultado inmediato al terminar.</span>
+          </li>
+          <li class="benefit">
+            <span class="benefit__icon"><i data-lucide="message-square"></i></span>
+            <span class="benefit__text">Sin tecnicismos — solo preguntas sencillas.</span>
+          </li>
+        </ul>
+
+        <!-- Banner cliente: salario detectado -->
+        <div class="cliente-banner" id="cliente-banner">
+          <span class="cliente-banner__icon"><i data-lucide="check-circle-2"></i></span>
+          <div class="cliente-banner__text">
+            <strong id="cliente-banner-name">Hola, Andrés</strong>
+            <span>Trajimos tu salario desde tu perfil Skandia. Podrás ajustarlo si cambió.</span>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <button type="button" class="btn btn--primary btn--full" onclick="ir('s-ingresos')">
+          Comenzar
+          <i data-lucide="arrow-right"></i>
+        </button>
+
+        <!-- Legal expandible -->
+        <details class="legal">
+          <summary>Aviso legal</summary>
+          <p>
+            Esta herramienta tiene carácter informativo y orientativo. No constituye asesoría
+            financiera personalizada. © Skandia Colombia 2026.
+          </p>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         PANTALLA 1 — INGRESOS
+    ════════════════════════════════════════════════ -->
+    <section class="screen" id="s-ingresos" data-screen-label="02 Ingresos">
+
+      <!-- Progreso -->
+      <nav class="progress" aria-label="Progreso">
+        <div class="progress__bar">
+          <span class="progress__seg progress__seg--done"></span>
+          <span class="progress__seg"></span>
+        </div>
+        <div class="progress__meta">
+          <span class="progress__count">Paso 1 de 2</span>
+          <span class="progress__sep">·</span>
+          <span class="progress__name">Tus ingresos</span>
+        </div>
+      </nav>
+
+      <div class="card anim-in">
+
+        <div class="section-title">
+          <div class="section-title__icon">
+            <i data-lucide="arrow-down-to-line"></i>
+          </div>
+          <div>
+            <h2 class="section-title__h">Tus ingresos</h2>
+            <p class="section-title__sub">¿Cuánto entra a tu cuenta de forma regular cada mes?</p>
+          </div>
+        </div>
+
+        <!-- Campo salario -->
+        <div class="field">
+          <div class="field__label-row">
+            <label for="inp-salario" class="field__label" id="salario-label">
+              <!-- Label cambia por canal vía JS -->
+            </label>
+            <button type="button" class="tip-trigger" aria-label="Ver ayuda" onclick="toggleTip(this)">
+              <i data-lucide="help-circle"></i>
+            </button>
+            <span class="tip-pop" role="tooltip" id="salario-tip">
+              <!-- Tooltip cambia por canal vía JS -->
+            </span>
+          </div>
+
+          <!-- Sublabel (solo cliente) -->
+          <p class="field__sublabel" id="salario-sublabel">
+            <i data-lucide="sparkles"></i>
+            De tu perfil Skandia · Puedes ajustarlo
+          </p>
+
+          <div class="field__input-wrap">
+            <span class="field__prefix">$</span>
+            <input
+              id="inp-salario"
+              type="text"
+              inputmode="numeric"
+              placeholder="0"
+              class="field__input"
+              autocomplete="off"
+              aria-required="true"
+              aria-describedby="salario-helper"
+              oninput="onSalarioInput(this)"
+            >
+          </div>
+
+          <p id="salario-valor" class="field__valor" aria-live="polite"></p>
+          <p id="salario-helper" class="field__helper">
+            <!-- Helper cambia por canal -->
+          </p>
+        </div>
+
+        <!-- Aclaración neto vs bruto -->
+        <div class="callout callout--info">
+          <span class="callout__icon"><i data-lucide="info"></i></span>
+          <div class="callout__text">
+            <strong>Usa tu sueldo neto.</strong>
+            Es la plata que efectivamente llega a tu cuenta cada mes, después de descuentos como salud, pensión y retenciones. No el salario total antes de deducciones.
+          </div>
+        </div>
+
+        <!-- Tip de contexto -->
+        <div class="hint">
+          <span class="hint__icon"><i data-lucide="lightbulb"></i></span>
+          <p class="hint__text">
+            Incluye solo lo que recibes de forma estable. Si tu ingreso varía,
+            usa el promedio de los últimos 3 meses.
+          </p>
+        </div>
+
+        <!-- CTA -->
+        <button
+          type="button"
+          id="btn-continuar"
+          class="btn btn--primary btn--full"
+          onclick="ir('s-distribucion')"
+          disabled
+        >
+          Continuar
+          <i data-lucide="arrow-right"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         PANTALLA 2 — DISTRIBUCIÓN
+    ════════════════════════════════════════════════ -->
+    <section class="screen" id="s-distribucion" data-screen-label="03 Distribución">
+
+      <!-- Progreso -->
+      <nav class="progress" aria-label="Progreso">
+        <div class="progress__bar">
+          <span class="progress__seg progress__seg--done"></span>
+          <span class="progress__seg progress__seg--done"></span>
+        </div>
+        <div class="progress__meta">
+          <span class="progress__count">Paso 2 de 2</span>
+          <span class="progress__sep">·</span>
+          <span class="progress__name">Tu distribución</span>
+        </div>
+      </nav>
+
+      <div class="card anim-in">
+
+        <div class="section-title">
+          <div class="section-title__icon">
+            <i data-lucide="sliders-horizontal"></i>
+          </div>
+          <div>
+            <h2 class="section-title__h">¿Cómo se reparte tu plata?</h2>
+            <p class="section-title__sub">Mueve los controles para que reflejen tu realidad.</p>
+          </div>
+        </div>
+
+        <!-- Modo de entrada (global) -->
+        <div class="mode-switch-row">
+          <span class="mode-switch-row__label">¿Cómo prefieres ingresar tus gastos?</span>
+          <div class="mode-switch" role="group" aria-label="Modo de entrada">
+            <button type="button" class="mode-switch__btn mode-switch__btn--active"
+                    data-mode="slider" onclick="setMode('slider')" aria-pressed="true">
+              <i data-lucide="sliders-horizontal"></i>
+              <span>Slider</span>
+            </button>
+            <button type="button" class="mode-switch__btn"
+                    data-mode="input" onclick="setMode('input')" aria-pressed="false">
+              <i data-lucide="hash"></i>
+              <span>Monto exacto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Barra proporcional + leyenda -->
+        <div class="distro" aria-label="Distribución del ingreso" role="img">
+          <div class="distro__bar" id="distro-bar">
+            <div class="distro__seg" data-key="vitales"></div>
+            <div class="distro__seg" data-key="deudas"></div>
+            <div class="distro__seg" data-key="gustos"></div>
+            <div class="distro__seg" data-key="cotidianos"></div>
+            <div class="distro__seg" data-key="futuro"></div>
+            <div class="distro__seg distro__seg--margen" data-key="margen"></div>
+          </div>
+          <div class="distro__legend">
+            <span class="legend"><span class="legend__dot" data-key="vitales"></span>Vitales</span>
+            <span class="legend"><span class="legend__dot" data-key="deudas"></span>Deudas</span>
+            <span class="legend"><span class="legend__dot" data-key="gustos"></span>Gustos</span>
+            <span class="legend"><span class="legend__dot" data-key="cotidianos"></span>Cotidianos</span>
+            <span class="legend"><span class="legend__dot" data-key="futuro"></span>Futuro</span>
+            <span class="legend"><span class="legend__dot legend__dot--margen"></span>Margen libre</span>
+          </div>
+        </div>
+
+        <!-- Layout dos columnas (desktop) -->
+        <div class="distro-grid">
+
+          <!-- Sliders -->
+          <div class="sliders" id="sliders-list">
+            <!-- Generados por JS -->
+          </div>
+
+          <!-- Right rail: resumen + nav -->
+          <aside class="distro-rail">
+            <!-- Resumen margen -->
+            <div class="margen-res" id="margen-res" aria-live="polite">
+              <div class="margen-res__left">
+                <span class="margen-res__icon"><i data-lucide="check-circle-2"></i></span>
+                <div>
+                  <p class="margen-res__label" id="margen-label">Tu capacidad de ahorro / margen libre</p>
+                  <p class="margen-res__sub" id="margen-sub">Lo que queda después de todo lo demás</p>
+                </div>
+              </div>
+              <div class="margen-res__right">
+                <span class="margen-res__pct" id="margen-pct">25%</span>
+                <span class="margen-res__cop" id="margen-cop"></span>
+              </div>
+            </div>
+
+            <div class="hint">
+              <span class="hint__icon"><i data-lucide="lightbulb"></i></span>
+              <p class="hint__text">
+                No tienes que ser exacto. Una estimación honesta ya te da mucha información
+                sobre tu flujo. Puedes ajustar cuando quieras.
+              </p>
+            </div>
+
+            <!-- Botones nav -->
+            <div class="nav-btns" style="flex-direction: column-reverse; gap: 8px;">
+              <button type="button" class="btn btn--ghost btn--full" onclick="ir('s-ingresos')">
+                <i data-lucide="chevron-left"></i>
+                Volver
+              </button>
+              <button type="button" class="btn btn--primary btn--full" onclick="ir('s-diagnostico')">
+                Ver mi diagnóstico
+                <i data-lucide="arrow-right"></i>
+              </button>
+            </div>
+          </aside>
+
+        </div><!-- /distro-grid -->
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         PANTALLA 3 — DIAGNÓSTICO
+    ════════════════════════════════════════════════ -->
+    <section class="screen" id="s-diagnostico" data-screen-label="04 Diagnóstico">
+
+      <!-- Card resultado principal -->
+      <div class="card card--diag anim-in" id="diag-main">
+        <div class="diag-head">
+          <div class="semaforo" aria-hidden="true">
+            <span class="semaforo__dot" data-tone="red"></span>
+            <span class="semaforo__dot" data-tone="yellow"></span>
+            <span class="semaforo__dot" data-tone="green"></span>
+          </div>
+          <div class="diag-head__text">
+            <h2 class="diag-head__title" id="diag-title">Tu flujo está saludable</h2>
+            <p class="diag-head__sub" id="diag-sub">Tus ingresos cubren tus gastos con margen positivo.</p>
+          </div>
+        </div>
+
+        <div class="diag-figures" id="diag-figures">
+          <div class="figure">
+            <span class="figure__label">Margen mensual</span>
+            <span class="figure__value" id="diag-margen-valor">—</span>
+          </div>
+          <span class="figure__sep"></span>
+          <div class="figure figure--right">
+            <span class="figure__label">Del ingreso</span>
+            <span class="figure__value" id="diag-margen-pct">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card cuerpo (riesgo) -->
+      <div class="card anim-in anim-in--1" id="diag-body" hidden>
+        <p id="diag-body-text"></p>
+      </div>
+
+      <!-- Card alertas -->
+      <div class="card anim-in anim-in--1" id="diag-alertas-card">
+        <h3 class="card__title">Tu diagnóstico</h3>
+        <div id="diag-body-inline"></div>
+        <ul class="alertas" id="alertas-list"></ul>
+      </div>
+
+      <!-- Card proyecciones (verde / amarillo) -->
+      <div class="card anim-in anim-in--2" id="diag-proyecciones" hidden>
+        <div class="card-proyecciones-head">
+          <h3 class="card__title">Tu futuro</h3>
+          <div class="carousel__nav" role="group" aria-label="Navegar proyecciones">
+            <button type="button" class="carousel__arrow btn btn--ghost btn--small" onclick="shiftCarousel(-1)" aria-label="Anterior">
+              <i data-lucide="chevron-left"></i>
+            </button>
+            <span class="carousel__counter" id="carousel-counter" aria-live="polite">1 / 3</span>
+            <button type="button" class="carousel__arrow btn btn--ghost btn--small" onclick="shiftCarousel(1)" aria-label="Siguiente">
+              <i data-lucide="chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <p class="card__sub" id="proyecciones-sub"></p>
+        <div class="carousel__track" id="proyecciones-list"></div>
+        <div class="carousel__dots" id="carousel-dots"></div>
+      </div>
+
+      <!-- Card CTAs -->
+      <div class="card card--brand anim-in anim-in--3" id="diag-ctas"></div>
+
+      <!-- Footer del diagnóstico -->
+      <div class="diag__back">
+        <button type="button" class="linkbtn" onclick="ir('s-distribucion')">
+          <i data-lucide="chevron-left"></i>
+          Volver a ajustar
+        </button>
+        <span class="diag__back-sep" aria-hidden="true">·</span>
+        <button type="button" class="linkbtn" onclick="reiniciar()">
+          <i data-lucide="rotate-ccw"></i>
+          Volver a empezar
+        </button>
+      </div>
+
+    </section>
+
+  </div><!-- /frame -->
+
+  <!-- Footer público (links del sitio) -->
+  <footer class="site-footer">
+    <p class="site-footer__text">
+      <i data-lucide="shield-check"></i>
+      Información de carácter orientativo. No constituye asesoría financiera personalizada.
+      © Skandia Colombia 2026. Vigilado por la Superintendencia Financiera.
+    </p>
+  </footer>
+
+</div><!-- /page-shell -->
+
+
+
+<!-- ══════════════════════════════════════════════
+     REACT + BABEL para Tweaks panel
+════════════════════════════════════════════════ -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script src="simulador.js"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="tweaks-app.jsx"></script>
+
+</body>
+</html>
