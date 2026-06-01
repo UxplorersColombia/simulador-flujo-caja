@@ -1868,6 +1868,7 @@ input:focus-visible {
 @media (max-width: 900px) {
   .chrome__nav { display: none; }
   .chrome__right { gap: 8px; }
+  body[data-channel="publico"] .chrome__inner { justify-content: space-between; gap: 0; }
 }
 
 /* ── Mobile cliente: hide sidebar, slim topbar ── */
@@ -1899,14 +1900,18 @@ input:focus-visible {
 @media (max-width: 540px) {
   .page-shell { padding: 16px 12px 32px; gap: 16px; }
 
-  /* Channel switch: bottom bar */
-  .channel-switch {
-    bottom: 12px; left: 12px; right: 12px;
-    justify-content: center;
-    padding: 4px;
+  /* Chrome público: compacto en móvil */
+  body[data-channel="publico"] .chrome__inner {
+    height: 56px;
+    padding: 0 16px;
   }
-  .channel-switch__label { display: none; }
-  .channel-switch__btn { padding: 6px 12px; font-size: 11px; gap: 4px; }
+  body[data-channel="publico"] .chrome__brand img { height: 20px; }
+  body[data-channel="publico"] .chrome__link--small { font-size: 12px; padding: 6px 10px; }
+  body[data-channel="publico"] .chrome__right .btn--small { font-size: 12px; padding: 0 12px; height: 34px; }
+
+  /* Footer: wrapping en pantallas pequeñas */
+  .site-footer { padding: 0 16px; }
+  .site-footer__text { flex-wrap: wrap; justify-content: center; text-align: center; gap: 6px; }
 
   /* Entrada */
   .entrada__title { font-size: 22px; }
@@ -1975,4 +1980,7 @@ input:focus-visible {
   .semaforo { flex-direction: row; }
   .distro__legend { gap: 4px 8px; }
   .legend { font-size: 10px; gap: 4px; }
+
+  /* Chrome público: ocultar botón Regístrate en pantallas muy pequeñas */
+  body[data-channel="publico"] .chrome__right .btn--secondary { display: none; }
 }
