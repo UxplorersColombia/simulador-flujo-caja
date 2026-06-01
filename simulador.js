@@ -6,7 +6,7 @@
 window.SIM_DEFAULTS = /*EDITMODE-BEGIN*/{
   "channel": "cliente",
   "perfilDemo": "auto",
-  "clientName": "Javier Andrade",
+  "clientName": "Carlos Méndez",
   "salarioPrecargado": 4500000
 }/*EDITMODE-END*/;
 
