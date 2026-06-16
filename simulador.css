@@ -24,13 +24,14 @@ a { color: inherit; text-decoration: none; }
   --r-card: var(--bordes-m);       /* 16px */
   --r-input: 8px;
   --r-pill: var(--bordes-pill);    /* 100px */
-  /* Colores de categorías = paleta de charts del DS Skandia */
-  --c-vitales:    #60a9a6;   /* charts-c03 — teal */
-  --c-deudas:     #ff9460;   /* charts-c04 — naranja */
-  --c-gustos:     #bc6995;   /* charts-c12 — rosa */
-  --c-cotidianos: #fecd72;   /* charts-c15 — ámbar */
-  --c-futuro:     #a1dd70;   /* charts-c01 — lima (verde brand secundario) */
-  --c-margen:     var(--neutral-l05);                        /* #c5c5c5 */
+  /* Colores de categorías = paleta de charts del DS Skandia (orden secuencial c01→c07) */
+  --c-vitales:    var(--charts-c01, #a1dd70);
+  --c-deudas:     var(--charts-c02, #a4d7e1);
+  --c-gustos:     var(--charts-c03, #60a9a6);
+  --c-cotidianos: var(--charts-c04, #ff9460);
+  --c-futuro:     var(--charts-c05, #8ba2c1);
+  --c-otros:      var(--charts-c06, #f67e7d);
+  --c-margen:     var(--charts-c07, #dddfd0);
 }
 
 /* ── Iconos Lucide tamaño base ──────────────────────────────────── */
@@ -816,6 +817,12 @@ body[data-channel="publico"] .cliente-banner { display: none; }
 .field__sublabel [data-lucide] { font-size: 16px; color: var(--primary-00); }
 body[data-channel="publico"] .field__sublabel { display: none; }
 
+.tip-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
 .tip-trigger {
   width: 24px;
   height: 24px;
@@ -837,7 +844,7 @@ body[data-channel="publico"] .field__sublabel { display: none; }
   display: none;
   position: absolute;
   left: 0;
-  top: 32px;
+  top: calc(100% + 8px);
   z-index: 50;
   width: 260px;
   background: var(--primarygrey-d04);

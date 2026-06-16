@@ -1,0 +1,2045 @@
+/* ══════════════════════════════════════════════════════════════════════
+   Simulador de Flujo de Caja · Skandia v3 · estilos adicionales
+   Este archivo solo añade estilos nuevos sobre simulador.css.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Header público: solo logo centrado ─── */
+.chrome__inner--centered {
+  justify-content: center;
+}
+
+/* ── Footer legal público: mismo patrón <details> que canal cliente ─── */
+.legal--footer {
+  text-align: center;
+}
+.legal--footer summary {
+  justify-content: center;
+}
+.legal--footer summary [data-lucide] {
+  font-size: 14px;
+  color: var(--primary-l03);
+  flex-shrink: 0;
+}
+
+/* ── Layout: main wrapper (v3 añade <main> que page-shell no conoce) ─── */
+#simulador-main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Tokens adicionales ─── */
+:root {
+  --c-otros: var(--charts-c06, #f67e7d);
+}
+
+/* ── Distro bar: segmento Otros ─── */
+.distro__seg[data-key="otros"] { background: var(--c-otros); }
+.legend__dot--otros {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-otros);
+}
+
+/* ── Figure hint sublabel (A1 — diagnóstico) ─── */
+.figure__hint {
+  font-size: 11px;
+  color: var(--texts-light);
+  line-height: 1.4;
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   FUENTES DE INGRESO (A3 — múltiples ingresos)
+═══════════════════════════════════════════════════════════════════ */
+.fuente-row + .fuente-row {
+  padding-top: 12px;
+  border-top: 1px solid var(--neutral-l03);
+}
+.fuente-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.fuente-input-wrap {
+  flex: 2;
+  min-width: 0;
+}
+.fuente-input-wrap .field__input {
+  border-radius: var(--r-input);
+}
+.fuente-remove {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--texts-light);
+  flex-shrink: 0;
+  transition: background 150ms, color 150ms;
+}
+.fuente-remove [data-lucide] { font-size: 16px; }
+.fuente-remove:hover { background: var(--feedback-error-light); color: var(--feedback-error-dark); }
+
+.total-ingresos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--primary-l05);
+  border: 1px solid var(--primary-l04);
+  border-radius: var(--r-input);
+}
+.total-ingresos__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary-d03);
+}
+.total-ingresos__value {
+  font-family: var(--title);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--primary-d02);
+  flex-shrink: 0;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   PERIODICIDAD (V2 — selector inline)
+═══════════════════════════════════════════════════════════════════ */
+.periodo-select {
+  height: 48px;
+  padding: 0 10px;
+  border: 1.5px solid var(--stroke-grey-light);
+  border-radius: var(--r-input);
+  background: var(--neutral-00);
+  font-family: var(--body);
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--texts-dark);
+  cursor: pointer;
+  flex-shrink: 0;
+  min-width: 108px;
+  outline: none;
+  transition: border-color 150ms;
+  appearance: auto;
+}
+.periodo-select:focus { border-color: var(--primary-00); }
+.periodo-select--fuente { min-width: 108px; }
+
+/* ════════════════════════════════════════════════════════════════════
+   AMOUNT ROW (V1 — slider + monto + periodicidad siempre visibles)
+═══════════════════════════════════════════════════════════════════ */
+.amount-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.amount-row .amount-input { flex: 1; }
+
+/* ── Ejemplos de categoría (A5) ─── */
+.slider-row__examples {
+  font-size: 11px;
+  color: var(--texts-light);
+  line-height: 1.4;
+  margin-top: 1px;
+  font-style: italic;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   ALERTAS CON CHIPS DE REFERENCIA (V5)
+═══════════════════════════════════════════════════════════════════ */
+.alerta__body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+.ref-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: var(--neutral-l02);
+  border: 1px solid var(--neutral-l03);
+  border-radius: var(--r-pill);
+  font-size: 11px;
+  color: var(--texts-medium);
+  font-style: italic;
+  align-self: flex-start;
+  line-height: 1.5;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   GASTOS SIN CATEGORÍA (A2)
+═══════════════════════════════════════════════════════════════════ */
+.custom-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 16px;
+  margin-top: 4px;
+}
+.custom-section__title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texts-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+#custom-otros-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.custom-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--neutral-l02);
+  border: 1px solid var(--neutral-l03);
+  border-radius: var(--r-input);
+}
+.custom-item__dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--c-otros);
+  flex-shrink: 0;
+}
+.custom-item__nombre {
+  flex: 1;
+  font-size: 14px;
+  color: var(--texts-dark);
+  font-weight: 500;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.custom-item__monto {
+  font-family: var(--title);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--texts-medium);
+  flex-shrink: 0;
+}
+.custom-item__remove {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-neutral-2);
+  flex-shrink: 0;
+  transition: background 150ms, color 150ms;
+}
+.custom-item__remove [data-lucide] { font-size: 14px; }
+.custom-item__remove:hover { background: var(--feedback-error-light); color: var(--feedback-error-dark); }
+
+#custom-form {
+  padding: 14px;
+  background: var(--neutral-l02);
+  border: 1.5px dashed var(--stroke-grey-light);
+  border-radius: var(--r-input);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.custom-form__row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.custom-form__nombre {
+  flex: 1;
+  min-width: 120px;
+  height: 56px;
+  padding: 0 12px;
+  border: 1.5px solid var(--stroke-grey-light);
+  border-radius: var(--r-input);
+  font-family: var(--body);
+  font-size: 14px;
+  color: var(--texts-dark);
+  outline: none;
+  background: var(--neutral-00);
+  transition: border-color 150ms;
+}
+.custom-form__nombre::placeholder { color: var(--texts-light); }
+.custom-form__nombre:focus { border-color: var(--primary-00); }
+.custom-form__actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   PANTALLA 4 — CTAs DE AVANCE (R2)
+═══════════════════════════════════════════════════════════════════ */
+#s-ctas { max-width: 600px; align-self: center; width: 100%; }
+
+/* ════════════════════════════════════════════════════════════════════
+   CANAL CLIENTE · PANTALLA CTAs — layout dos columnas
+   Mismo patrón que s-entrada y s-ingresos
+═══════════════════════════════════════════════════════════════════ */
+
+.ctas-col--left { display: none; }
+.ctas-col--right { width: 100%; }
+
+/* Canal cliente desktop: grid dos columnas, anula max-width de #s-ctas */
+body[data-channel="cliente"] #s-ctas.screen--active {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  min-height: calc(100vh - 80px);
+  max-width: none !important;
+  align-self: stretch !important;
+  width: 100%;
+}
+
+/* Romper restricciones de page-shell y frame */
+body[data-channel="cliente"] .page-shell:has(#s-ctas.screen--active) {
+  padding: 0;
+}
+body[data-channel="cliente"] .frame:has(#s-ctas.screen--active),
+body[data-channel="cliente"] .page-shell:has(#s-ctas.screen--active) > .breadcrumb {
+  max-width: none;
+  margin: 0;
+}
+
+/* Ocultar frame-breadcrumb: vive en la columna izquierda */
+body[data-channel="cliente"] .frame:has(#s-ctas.screen--active) .frame-breadcrumb {
+  display: none;
+}
+
+/* Panel izquierdo */
+body[data-channel="cliente"] .ctas-col--left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+  background: #EDFEFA;
+  padding: 32px 48px 48px;
+}
+body[data-channel="cliente"] .ctas-col--left .breadcrumb {
+  align-self: flex-start;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+body[data-channel="cliente"] .ctas-col--left .ctas-illus {
+  margin-top: auto;
+  margin-bottom: 28px;
+  align-self: center;
+  flex-shrink: 0;
+}
+body[data-channel="cliente"] .ctas-col--left .ctas__head-left {
+  margin-top: 0;
+  margin-bottom: auto;
+}
+
+/* Ilustración */
+.ctas-illus { width: 240px; height: 240px; }
+.ctas-illus__img { width: 100%; height: 100%; object-fit: contain; }
+
+/* Título y subtítulo del panel izquierdo */
+.ctas__head-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ctas__title-left {
+  font-family: var(--title);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 2.4vw, 2.25rem);
+  color: var(--texts-dark);
+  line-height: 1.2;
+  text-align: center;
+}
+.ctas__sub-left {
+  font-size: 15px;
+  color: var(--texts-medium);
+  line-height: 1.55;
+  text-align: center;
+}
+
+/* Panel derecho */
+body[data-channel="cliente"] .ctas-col--right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 40px 48px;
+  background: var(--neutral-00);
+  overflow-y: auto;
+}
+
+/* Tablet (≤ 860px): columnas apiladas */
+@media (max-width: 860px) {
+  body[data-channel="cliente"] #s-ctas.screen--active {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  body[data-channel="cliente"] .ctas-col--left {
+    padding: 24px 20px 20px;
+    gap: 20px;
+    justify-content: flex-start;
+    min-height: 180px;
+  }
+  .ctas-illus { width: 140px; height: 140px; }
+  body[data-channel="cliente"] .ctas-col--right {
+    padding: 24px 20px;
+    gap: 16px;
+  }
+}
+
+/* Mobile (≤ 768px): colapsa igual que paso de tus datos */
+@media (max-width: 768px) {
+  body[data-channel="cliente"] #s-ctas.screen--active {
+    display: flex;
+    flex-direction: column;
+  }
+  body[data-channel="cliente"] .ctas-col--left { display: none !important; }
+  body[data-channel="cliente"] .ctas-col--right {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    gap: 16px;
+  }
+  body[data-channel="cliente"] .page-shell:has(#s-ctas.screen--active) {
+    padding: 20px 16px 48px;
+  }
+  body[data-channel="cliente"] .frame:has(#s-ctas.screen--active),
+  body[data-channel="cliente"] .page-shell:has(#s-ctas.screen--active) > .breadcrumb {
+    max-width: none;
+    margin: 0;
+  }
+}
+
+.ctas-hero {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.ctas-hero .semaforo { flex-shrink: 0; }
+.ctas-hero { margin-bottom: 32px; }
+.ctas-hero__title {
+  font-family: var(--title);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--texts-dark);
+  line-height: 1.25;
+}
+.ctas-hero__sub {
+  font-size: 14px;
+  color: var(--texts-medium);
+  line-height: 1.55;
+  margin-top: 4px;
+}
+
+.ctas-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cta-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: var(--r-card);
+  border: 1.5px solid var(--neutral-l03);
+  background: var(--neutral-00);
+  transition: border-color 150ms, box-shadow 150ms;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+.cta-card--primary { border-color: var(--primary-l04); }
+.cta-card--secondary {
+  background: var(--primary-l05);
+  border-color: var(--primary-l04);
+}
+.cta-card:hover {
+  border-color: var(--primary-00);
+  box-shadow: 0 4px 14px rgba(0, 199, 61, 0.12);
+}
+.cta-card__icon {
+  width: 48px; height: 48px;
+  border-radius: 16px;
+  background: var(--estilos-degrade);
+  color: var(--neutral-00);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.cta-card--secondary .cta-card__icon {
+  background: var(--neutral-00);
+  color: var(--primary-d01);
+  border: 1.5px solid var(--primary-l04);
+}
+.cta-card__body { flex: 1; min-width: 0; }
+.cta-card__title {
+  font-family: var(--title);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--texts-dark);
+  line-height: 1.3;
+}
+.cta-card__note {
+  font-size: 12px;
+  color: var(--texts-medium);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+.cta-card__arrow {
+  color: var(--primary-d01);
+  flex-shrink: 0;
+  font-size: 20px;
+}
+
+/* ── Hint callout prominente en Pantalla 2 ─── */
+.hint--prominent {
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+.hint--prominent .hint__icon { color: #d97706; }
+.hint--prominent .hint__text { color: #78350f; font-weight: 600; }
+
+/* ════════════════════════════════════════════════════════════════════
+   CANAL CLIENTE · Ancho expandido en Distribución y Diagnóstico
+   El .frame tiene max-width: 1024px por defecto. Aquí lo sustituimos
+   por 90vw para que el contenido aproveche el espacio disponible.
+═══════════════════════════════════════════════════════════════════ */
+body[data-channel="cliente"] .frame:has(#s-distribucion.screen--active),
+body[data-channel="cliente"] .frame:has(#s-diagnostico.screen--active) {
+  max-width: 95%;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   BARRA DE DISTRIBUCIÓN STICKY (pantalla 2)
+   Se ancla debajo del header al hacer scroll, dando feedback
+   visual permanente mientras el usuario ajusta sus categorías.
+═══════════════════════════════════════════════════════════════════ */
+
+/* Variable de offset según canal y breakpoint
+   cliente desktop: 80px · cliente móvil ≤768px: 56px
+   público desktop: 64px · público móvil ≤540px: 56px          */
+body                     { --distro-sticky-top: 64px; }
+[data-channel="cliente"] { --distro-sticky-top: 80px; }
+
+@media (max-width: 768px) {
+  [data-channel="cliente"] { --distro-sticky-top: 56px; }
+}
+@media (max-width: 540px) {
+  body { --distro-sticky-top: 56px; }
+}
+
+#s-distribucion .distro {
+  position: sticky;
+  top: var(--distro-sticky-top, 80px);
+  z-index: 20;
+  background: var(--neutral-00);
+  /* Extender a los bordes del card (padding 24px) */
+  margin-left: -24px;
+  margin-right: -24px;
+  padding: 12px 24px 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 200ms ease;
+}
+
+/* En desktop la .distro-rail baja para no quedar detrás de la barra sticky */
+@media (min-width: 860px) {
+  #s-distribucion .distro-rail {
+    top: calc(var(--distro-sticky-top, 80px) + 80px);
+  }
+}
+
+/* ── Responsive v3 ─── */
+@media (max-width: 540px) {
+  .cta-card { flex-wrap: wrap; gap: 12px; padding: 14px; }
+  .cta-card .btn { width: 100%; }
+  .fuente-input-row { flex-wrap: wrap; }
+  .fuente-input-row .periodo-select { min-width: unset; flex: 1; }
+  .amount-row { flex-wrap: wrap; }
+  .amount-row .periodo-select { flex: 1; min-width: unset; }
+  .custom-form__row { flex-direction: column; }
+  .total-ingresos { flex-direction: column; align-items: flex-start; gap: 4px; }
+  /* Compensar padding reducido del card en móvil (16px) */
+  #s-distribucion .distro {
+    margin-left: -16px;
+    margin-right: -16px;
+    padding: 10px 16px 8px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   ALTURA UNIFORME DE INPUTS (56px — igual que .field__input en Screen 1)
+═══════════════════════════════════════════════════════════════════ */
+/* Inputs de monto en los sliders */
+.amount-row .amount-input,
+.amount-row .periodo-select {
+  height: 56px;
+}
+
+/* Selects de periodicidad en fuentes de ingreso (Screen 1) */
+.periodo-select--fuente {
+  height: 56px;
+}
+
+/* Custom form — todos a 56px para consistencia global */
+#custom-periodicidad       { height: 56px; }
+#custom-form .amount-input { height: 56px; }
+
+/* ════════════════════════════════════════════════════════════════════
+   ESPACIADO SLIDER-ROW — más aire entre texto, slider e input
+═══════════════════════════════════════════════════════════════════ */
+.slider-row { gap: 14px; }
+
+/* Separación explícita: entre el head y el track, y entre el track y el amount-row */
+.slider-row input[type="range"].slider { margin-top: -4px; }
+.slider-row .amount-row              { margin-top:  2px; }
+
+/* ════════════════════════════════════════════════════════════════════
+   CHEVRON EN SELECTS — appearance: none + chevron SVG propio para
+   control total del espaciado texto ↔ flecha en todos los canales
+═══════════════════════════════════════════════════════════════════ */
+.periodo-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0 40px 0 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px 16px;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   HINT PROMINENTE — centrar ícono con el texto (base usa flex-start)
+═══════════════════════════════════════════════════════════════════ */
+.hint--prominent {
+  align-items: center;
+}
+.hint--prominent .hint__icon {
+  margin-top: 0;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   USABILIDAD v3 — mejoras de interacción, accesibilidad y flujo
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── <main> wrapper — sin efecto visual ─── */
+#simulador-main { width: 100%; }
+
+/* ── Tooltip — ancho fijo, sin desbordamiento lateral en mobile ─── */
+.tip-pop {
+  width: min(260px, calc(100vw - 48px));
+}
+
+/* ── Label + ícono fluyen inline: el (?) siempre queda pegado al texto ─── */
+.slider-row__label-wrap {
+  display: block;
+}
+.slider-row__label {
+  display: inline;
+}
+.slider-row__label-wrap .tip-wrap {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+/* ── Tooltip resultado — card--diag tiene overflow:hidden, lo anulamos
+      y redondeamos el ::before para que no queden esquinas cuadradas   ─── */
+.card--diag {
+  overflow: visible;
+  isolation: isolate;
+}
+.card--diag::before {
+  border-radius: var(--r-card) var(--r-card) 0 0;
+}
+
+/* ── Tooltip visible eleva su card por encima de las siguientes cards ─── */
+.tip-pop.visible {
+  z-index: 200;
+}
+
+/* ── Carousel dots — área táctil mínima 24px ─── */
+.carousel__dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: transparent;
+  position: relative;
+}
+.carousel__dot::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: var(--neutral-l03);
+  transition: background 200ms, transform 200ms;
+}
+.carousel__dot--active::after {
+  background: var(--primary-00);
+  transform: scale(1.2);
+}
+
+/* ── Carousel slide — animación de entrada con dirección ─── */
+@keyframes carouselSlideInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes carouselSlideInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.carousel__slide { display: none; }
+.carousel__slide--active {
+  display: block;
+  animation: carouselSlideInRight 200ms ease both;
+}
+.carousel__track[data-dir="-1"] .carousel__slide--active {
+  animation: carouselSlideInLeft 200ms ease both;
+}
+
+/* ── Exit animation entre pantallas ─── */
+@keyframes screenFadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+.screen--leaving {
+  animation: screenFadeOut 150ms ease-in forwards;
+  pointer-events: none;
+}
+
+/* ── Botón destructivo "Volver a empezar" ─── */
+.linkbtn--destructive {
+  color: var(--texts-medium);
+}
+.linkbtn--destructive:hover {
+  color: var(--feedback-error-dark);
+  background: var(--feedback-error-light);
+}
+
+/* ── CTA card — cursor correcto (solo el btn interno es clickeable) ─── */
+.cta-card { cursor: default; }
+
+/* ── Carousel arrows — forzar cuadrado 32px (btn--small sobreescribía height a 40px) ─── */
+.btn.carousel__arrow { width: 32px; height: 32px; padding: 0; }
+
+/* ── Helper text bajo botón deshabilitado ─── */
+.btn-helper {
+  font-size: 12px;
+  color: var(--texts-medium);
+  line-height: 1.4;
+  text-align: center;
+  min-height: 1em;
+  display: block;
+}
+
+/* ── Subcategorías opcionales (Vitales / Deudas) ─── */
+.detalle-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--primary-d01);
+  font-weight: 500;
+  padding: 4px 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.detalle-toggle:hover { color: var(--primary-00); }
+.detalle-toggle [data-lucide] { width: 16px; height: 16px; }
+
+.detalle-panel {
+  margin-top: 12px;
+  padding: 14px 16px;
+  background: var(--neutral-l01, #f9fafb);
+  border: 1px solid var(--neutral-l03, #e5e7eb);
+  border-radius: 10px;
+}
+.detalle-panel__inner { display: flex; flex-direction: column; gap: 10px; }
+
+.detalle-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.detalle-item__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--texts-dark);
+  min-width: 130px;
+  flex-shrink: 0;
+}
+.detalle-item__input-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border: 1.5px solid var(--neutral-l03, #e5e7eb);
+  border-radius: 8px;
+  background: #fff;
+  padding: 0 10px;
+  gap: 4px;
+  height: 40px;
+}
+.detalle-item__input {
+  border: none !important;
+  background: transparent !important;
+  height: auto !important;
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  padding: 0 !important;
+}
+.detalle-item__remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--texts-medium);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.detalle-item__remove:hover { color: var(--feedback-error, #e03430); background: var(--feedback-error-light, #fde8e8); }
+.detalle-item__remove [data-lucide] { width: 15px; height: 15px; }
+
+.detalle-panel__total {
+  font-size: 13px;
+  color: var(--texts-medium);
+  margin-top: 2px;
+}
+.detalle-panel__total strong { color: var(--texts-dark); }
+
+.detalle-panel__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+.detalle-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border: 1.5px dashed var(--primary-l04);
+  border-radius: 20px;
+  background: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--primary-d01);
+  font-weight: 500;
+  transition: border-color 0.15s, background 0.15s;
+}
+.detalle-chip:hover { border-color: var(--primary-00); background: var(--primary-l05); }
+.detalle-chip [data-lucide] { width: 13px; height: 13px; }
+
+@media (max-width: 540px) {
+  .detalle-item { flex-wrap: wrap; }
+  .detalle-item__label { min-width: 100%; }
+}
+
+/* ── CTA PDF ─── */
+.cta-card--pdf {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 1.5px solid var(--primary-l04);
+  border-radius: 12px;
+  cursor: pointer;
+}
+.cta-card--pdf:hover {
+  border-color: var(--primary-00);
+  box-shadow: 0 4px 14px rgba(0, 199, 61, 0.12);
+}
+.cta-card--pdf .cta-card__icon {
+  background: var(--primary-l05);
+  color: var(--primary-d01);
+  border: 1.5px solid var(--primary-l04);
+}
+
+/* ── Toast de confirmación ─── */
+.sim-toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: var(--texts-dark, #1a2332);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 12px 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.22);
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 9999;
+  pointer-events: none;
+  max-width: min(92vw, 420px);
+  text-align: center;
+}
+.sim-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── distro-rail sticky en mobile ─── */
+@media (max-width: 859px) {
+  .distro-rail {
+    position: sticky;
+    bottom: 0;
+    background: var(--neutral-00);
+    margin-left: -24px;
+    margin-right: -24px;
+    padding: 12px 24px calc(16px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--neutral-l03);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
+    z-index: 10;
+  }
+}
+@media (max-width: 540px) {
+  .distro-rail {
+    margin-left: -16px;
+    margin-right: -16px;
+    padding: 12px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   MÓDULO LEAD — captura de datos + layout dos columnas (canal público)
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── Canal cliente: ocultar elementos exclusivos del canal público ── */
+body[data-channel="cliente"] .lead-form,
+body[data-channel="cliente"] .lead-consent--publico,
+body[data-channel="cliente"] #lead-form-helper { display: none !important; }
+
+body[data-channel="cliente"] .entrada-stepper,
+body[data-channel="cliente"] .hero,
+body[data-channel="cliente"] .benefits { display: none; }
+
+/* ── Canal público: ocultar elementos exclusivos del canal cliente ── */
+body[data-channel="publico"] .hero,
+body[data-channel="publico"] .benefits { display: none; }
+
+/* ── Canal público: fondo blanco y contenedor de pantalla entrada ── */
+body[data-channel="publico"] {
+  background: var(--neutral-00);
+}
+body[data-channel="publico"] #s-entrada {
+  max-width: min(720px, calc(100vw - 48px));
+}
+
+/* ── Canal público: layout de columna única centrada ── */
+body[data-channel="publico"] .entrada {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+  gap: 20px;
+}
+
+body[data-channel="publico"] .entrada__title { font-size: 32px; }
+
+body[data-channel="publico"] .entrada__head {
+  max-width: none;
+  text-align: center;
+}
+
+body[data-channel="publico"] .entrada__sub { font-size: 15px; }
+
+/* Ocultar el aviso legal del footer en canal público */
+body[data-channel="publico"] .site-footer { display: none; }
+
+/* ── Label introductorio de beneficios (oculto por defecto) ── */
+.entrada__benefits-label {
+  display: none;
+  font-size: 13px;
+  color: var(--texts-medium);
+  font-weight: 500;
+}
+body[data-channel="publico"] .entrada__benefits-label { display: block; }
+
+/* ════════════════════════════════════════════════════════════════════
+   STEPPER DE PASOS
+═══════════════════════════════════════════════════════════════════ */
+
+/* Oculto por defecto; visible en canal público (entrada) y en todas
+   las pantallas de simulación/resultados para ambos canales          */
+.entrada-stepper {
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+}
+body[data-channel="publico"] #s-entrada .entrada-stepper,
+#s-ingresos .entrada-stepper,
+#s-distribucion .entrada-stepper { display: flex; }
+
+.entrada-stepper__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.entrada-stepper__num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--neutral-l03);
+  color: var(--texts-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--title);
+  font-weight: 700;
+  font-size: 14px;
+  transition: background 200ms, color 200ms;
+}
+
+/* Paso activo */
+.entrada-stepper__step--active .entrada-stepper__num {
+  background: var(--primary-00);
+  color: var(--neutral-00);
+}
+
+/* Paso completado */
+.entrada-stepper__step--done .entrada-stepper__num {
+  background: var(--primary-l04);
+  color: var(--primary-d02);
+}
+
+.entrada-stepper__label {
+  font-size: 12px;
+  color: var(--texts-light);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.entrada-stepper__step--active .entrada-stepper__label {
+  color: var(--texts-dark);
+  font-weight: 600;
+}
+.entrada-stepper__step--done .entrada-stepper__label {
+  color: var(--texts-medium);
+}
+
+.entrada-stepper__line {
+  flex: 1;
+  min-width: 40px;
+  max-width: 120px;
+  height: 2px;
+  background: var(--neutral-l03);
+  margin-top: 17px;
+  transition: background 200ms;
+}
+
+/* Línea completada */
+.entrada-stepper__line--done { background: var(--primary-l03); }
+
+/* ════════════════════════════════════════════════════════════════════
+   TARJETAS DE BENEFICIOS (solo canal público)
+═══════════════════════════════════════════════════════════════════ */
+.entrada-benefits { display: none; }
+body[data-channel="publico"] .entrada-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.entrada-benefit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 20px 16px;
+  background: var(--neutral-00);
+  border: 1px solid var(--neutral-l03);
+  border-radius: var(--r-card);
+}
+.entrada-benefit__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--primary-l05);
+  color: var(--primary-d01);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.entrada-benefit__icon [data-lucide] { width: 20px; height: 20px; }
+.entrada-benefit__title {
+  font-family: var(--title);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--texts-dark);
+  line-height: 1.3;
+}
+.entrada-benefit__desc {
+  font-size: 12px;
+  color: var(--texts-medium);
+  line-height: 1.5;
+}
+
+/* ── Mobile (≤ 540px): beneficios en columna ── */
+@media (max-width: 540px) {
+  body[data-channel="publico"] #s-entrada {
+    max-width: calc(100vw - 32px);
+  }
+  body[data-channel="publico"] .entrada-benefits {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Card del formulario de lead: compacta y alineada ── */
+.card--lead {
+  padding: 20px;
+  gap: 14px;
+  text-align: left;
+}
+
+/* Inputs del lead-form: tamaño de texto normal (no H1) */
+.card--lead .field__input {
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: 15px;
+  padding-left: 16px;
+}
+
+/* Asterisco de campo requerido */
+.lead-required {
+  color: var(--feedback-error-dark, #b91c1c);
+  margin-left: 2px;
+}
+
+/* Fila teléfono: selector indicativo + input */
+.lead-phone-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.lead-indicativo {
+  height: 56px;
+  padding: 0 32px 0 12px;
+  border: 1.5px solid var(--neutral-l04);
+  border-radius: var(--r-input);
+  background: var(--neutral-00) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 10px center;
+  appearance: none;
+  -webkit-appearance: none;
+  font-size: 14px;
+  color: var(--texts-dark);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.15s;
+}
+
+.lead-indicativo:focus {
+  outline: none;
+  border-color: var(--primary-d01);
+  box-shadow: 0 0 0 3px var(--primary-l04);
+}
+
+.lead-phone-hint {
+  font-size: 12px;
+  color: var(--texts-light);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Fila toggle ¿Eres cliente? */
+.lead-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0 2px;
+}
+
+/* Toggle switch */
+.toggle-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch__track {
+  width: 44px;
+  height: 24px;
+  background: var(--neutral-l05);
+  border-radius: 12px;
+  transition: background 0.2s;
+  position: relative;
+}
+
+.toggle-switch__track::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--neutral-00);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.toggle-switch input:checked + .toggle-switch__track {
+  background: var(--primary-d01);
+}
+
+.toggle-switch input:checked + .toggle-switch__track::after {
+  transform: translateX(20px);
+}
+
+.toggle-switch input:focus-visible + .toggle-switch__track {
+  outline: 2px solid var(--primary-d01);
+  outline-offset: 2px;
+}
+
+/* Consentimiento de datos */
+.lead-consent {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.lead-consent__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.lead-consent__box {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--neutral-l05);
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: border-color 0.15s, background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--neutral-00);
+}
+
+.lead-consent__input:checked + .lead-consent__box {
+  border-color: var(--primary-d01);
+  background: var(--primary-d01);
+}
+
+.lead-consent__input:checked + .lead-consent__box::after {
+  content: '';
+  width: 5px;
+  height: 9px;
+  border-right: 2px solid var(--neutral-00);
+  border-bottom: 2px solid var(--neutral-00);
+  transform: rotate(45deg) translate(-1px, -1px);
+  display: block;
+}
+
+.lead-consent__input:focus-visible + .lead-consent__box {
+  outline: 2px solid var(--primary-d01);
+  outline-offset: 2px;
+}
+
+.lead-consent__text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--texts-medium);
+}
+
+.lead-consent__link {
+  color: var(--primary-d01);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.lead-consent__link:hover {
+  color: var(--primary-d02);
+}
+
+/* ── Reduced motion: desactivar nuevas animaciones ─── */
+@media (prefers-reduced-motion: reduce) {
+  .screen--leaving { animation: none; }
+  .carousel__slide--active { animation: none; }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   CANAL CLIENTE · PASO INGRESOS — layout dos columnas
+   Misma estructura que s-entrada: panel verde izquierdo + form derecho
+═══════════════════════════════════════════════════════════════════ */
+
+/* Columna izquierda oculta por defecto; derecha como bloque normal */
+.ingresos-col--left { display: none; }
+.ingresos-col--right { width: 100%; }
+
+/* Canal cliente desktop: activar grid de dos columnas */
+body[data-channel="cliente"] #s-ingresos.screen--active {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  height: calc(100vh - 80px);
+  max-width: none !important;
+  align-self: stretch !important;
+  width: 100%;
+}
+
+/* Romper restricciones de page-shell y frame */
+body[data-channel="cliente"] .page-shell:has(#s-ingresos.screen--active) {
+  padding: 0;
+}
+body[data-channel="cliente"] .frame:has(#s-ingresos.screen--active),
+body[data-channel="cliente"] .page-shell:has(#s-ingresos.screen--active) > .breadcrumb {
+  max-width: none;
+  margin: 0;
+}
+
+/* Ocultar frame-breadcrumb: el breadcrumb vive en la columna izquierda */
+body[data-channel="cliente"] .frame:has(#s-ingresos.screen--active) .frame-breadcrumb {
+  display: none;
+}
+
+/* Panel izquierdo */
+body[data-channel="cliente"] .ingresos-col--left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+  background: #EDFEFA;
+  padding: 32px 48px 48px;
+  overflow: hidden;
+}
+body[data-channel="cliente"] .ingresos-col--left .breadcrumb {
+  align-self: flex-start;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+body[data-channel="cliente"] .ingresos-col--left .ingresos-illus {
+  margin-top: auto;
+  margin-bottom: 28px;
+  align-self: center;
+  flex-shrink: 0;
+}
+body[data-channel="cliente"] .ingresos-col--left .ingresos__head {
+  margin-top: 0;
+  margin-bottom: auto;
+}
+
+/* Ilustración */
+.ingresos-illus { width: 240px; height: 240px; }
+.ingresos-illus__img { width: 100%; height: 100%; object-fit: contain; }
+
+/* Título y subtítulo del panel izquierdo */
+.ingresos__head {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ingresos__title {
+  font-family: var(--title);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 2.4vw, 2.25rem);
+  color: var(--texts-dark);
+  line-height: 1.2;
+  text-align: center;
+}
+.ingresos__sub {
+  font-size: 15px;
+  color: var(--texts-medium);
+  line-height: 1.55;
+  text-align: center;
+}
+
+/* Panel derecho */
+body[data-channel="cliente"] .ingresos-col--right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 40px 48px;
+  background: var(--neutral-00);
+  overflow-y: auto;
+}
+
+/* Tablet (≤ 860px): columnas apiladas */
+@media (max-width: 860px) {
+  body[data-channel="cliente"] #s-ingresos.screen--active {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: auto;
+  }
+  body[data-channel="cliente"] .ingresos-col--left {
+    padding: 24px 20px 20px;
+    gap: 20px;
+    justify-content: flex-start;
+    min-height: 180px;
+  }
+  .ingresos-illus { width: 140px; height: 140px; }
+  body[data-channel="cliente"] .ingresos-col--right {
+    padding: 24px 20px;
+    gap: 16px;
+  }
+}
+
+/* Mobile (≤ 768px): colapsa igual que paso de tus datos */
+@media (max-width: 768px) {
+  body[data-channel="cliente"] #s-ingresos.screen--active {
+    display: flex;
+    flex-direction: column;
+  }
+  body[data-channel="cliente"] .ingresos-col--left { display: none !important; }
+  body[data-channel="cliente"] .ingresos-col--right {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    gap: 16px;
+  }
+  body[data-channel="cliente"] .page-shell:has(#s-ingresos.screen--active) {
+    padding: 20px 16px 48px;
+  }
+  body[data-channel="cliente"] .frame:has(#s-ingresos.screen--active),
+  body[data-channel="cliente"] .page-shell:has(#s-ingresos.screen--active) > .breadcrumb {
+    max-width: none;
+    margin: 0;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   CANAL CLIENTE · PÁGINA INICIAL — layout dos bloques
+   Alineada con el diseño del portal-clientes (ref. skandia-sim-trib)
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── Topbar: campana de notificaciones ── */
+.topbar__notif {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--primary-l03);
+  background: var(--neutral-00);
+  color: var(--primary-00);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: border-color 150ms, background 150ms;
+}
+.topbar__notif:hover {
+  border-color: var(--primary-00);
+  background: var(--primary-l05);
+}
+.topbar__notif [data-lucide] { width: 18px; height: 18px; }
+.topbar__notif-badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: var(--semantic-danger, #e53535);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--title);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* ── Sidebar: indicador de ítem activo ── */
+.sidebar__item { position: relative; }
+.sidebar__item-bar { display: none; }
+.sidebar__item--active .sidebar__item-bar {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  background: var(--primary-00);
+}
+
+/* ── Canal cliente: entrada como contenedor plano (sin card) ── */
+body[data-channel="cliente"] .entrada {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  padding: 8px 0 24px;
+  align-items: stretch;
+  text-align: left;
+  gap: 24px;
+}
+
+/* ── BLOQUE 1: intro (título + banner bienvenida) ── */
+.entrada__intro-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+/* Duplicados condicionales del título/subtítulo */
+.entrada__head--publico { display: none; }
+body[data-channel="publico"] .entrada__head--publico { display: flex; }
+
+.entrada__head--cliente-mobile { display: none; }
+
+body[data-channel="cliente"] .entrada__head {
+  text-align: left;
+  max-width: none;
+}
+body[data-channel="cliente"] .entrada__title {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+body[data-channel="cliente"] .entrada__sub { font-size: 15px; }
+
+/* ── BLOQUE 2: tarjetas de beneficios para cliente ── */
+body[data-channel="cliente"] .entrada__benefits-label { display: block; text-align: center; }
+body[data-channel="cliente"] .entrada-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+/* ── Tarjeta 3: variante por canal ── */
+body[data-channel="publico"] .entrada-benefit--cliente-only { display: none; }
+body[data-channel="cliente"] .entrada-benefit--publico-only { display: none; }
+
+/* ── Mobile cliente: adaptar a una columna ── */
+@media (max-width: 768px) {
+  body[data-channel="cliente"] .entrada-benefits {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   CANAL CLIENTE · PANTALLA ENTRADA — layout dos columnas (portal-style)
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── Columnas: oculta izquierda por defecto, derecha visible ── */
+.entrada-col--left { display: none; }
+.entrada-col--right { display: block; }
+
+/* ── Canal cliente: activar grid de dos columnas ── */
+body[data-channel="cliente"] #s-entrada.screen--active {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  min-height: calc(100vh - 80px);
+  max-width: none !important;
+  align-self: stretch !important;
+  width: 100%;
+}
+
+/* ── Romper restricciones de page-shell y frame cuando entrada está activa ── */
+body[data-channel="cliente"] .page-shell:has(#s-entrada.screen--active) {
+  padding: 0;
+}
+body[data-channel="cliente"] .frame:has(#s-entrada.screen--active),
+body[data-channel="cliente"] .page-shell:has(#s-entrada.screen--active) > .breadcrumb {
+  max-width: none;
+  margin: 0;
+}
+body[data-channel="cliente"] .page-shell > .breadcrumb {
+  display: none;
+}
+
+body[data-channel="cliente"] .entrada-col--left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0;
+  background: #EDFEFA;
+  padding: 32px 48px 48px;
+  align-items: center;
+}
+body[data-channel="cliente"] .entrada-col--left .breadcrumb { margin-bottom: 0; align-self: flex-start; }
+body[data-channel="cliente"] .entrada-col--left .entrada-illus { margin-top: auto; margin-bottom: 28px; align-self: center; flex-shrink: 0; }
+body[data-channel="cliente"] .entrada-col--left .entrada__head { margin-top: 0; margin-bottom: auto; }
+
+body[data-channel="cliente"] .entrada-col--right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 40px 48px;
+  background: var(--neutral-00);
+  overflow-y: auto;
+}
+
+/* ── Breadcrumb: panel izquierdo y breadcrumb del frame ── */
+body[data-channel="cliente"] .entrada-col--left .breadcrumb,
+body[data-channel="cliente"] .frame-breadcrumb {
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Breadcrumb del frame: visible en canal cliente excepto en pantalla de entrada ── */
+.frame-breadcrumb { display: none; }
+body[data-channel="cliente"] .frame-breadcrumb { display: inline-flex; }
+body[data-channel="cliente"] .frame:has(#s-entrada.screen--active) .frame-breadcrumb { display: none; }
+
+/* ── Ilustración izquierda ── */
+.entrada-illus {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.entrada-illus--img {
+  width: 240px;
+  height: 240px;
+}
+.entrada-illus__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.entrada-illus__ring {
+  position: absolute;
+  border-radius: 50%;
+}
+.entrada-illus__ring--outer {
+  inset: 0;
+  background: rgba(0, 199, 61, 0.1);
+  border: 1.5px solid rgba(0, 199, 61, 0.22);
+}
+.entrada-illus__ring--inner {
+  inset: 28px;
+  background: rgba(0, 199, 61, 0.18);
+}
+.entrada-illus__core {
+  position: relative;
+  z-index: 1;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--estilos-degrade);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 30px -8px rgba(0, 199, 61, 0.5);
+}
+.entrada-illus__badge {
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  background: var(--neutral-00);
+  color: var(--primary-d02);
+  border: 1px solid var(--primary-l04);
+  font-family: var(--title);
+  font-weight: 700;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Título y subtítulo en el panel izquierdo ── */
+body[data-channel="cliente"] .entrada-col--left .entrada__head {
+  text-align: center;
+  align-items: center;
+  max-width: none;
+}
+body[data-channel="cliente"] .entrada-col--left .entrada__title {
+  font-size: clamp(1.6rem, 2.4vw, 2.25rem);
+  line-height: 1.2;
+  text-align: center;
+}
+body[data-channel="cliente"] .entrada-col--left .entrada__sub {
+  font-size: 15px;
+  text-align: center;
+}
+
+/* ── Panel derecho: .entrada plano (sin card) ── */
+body[data-channel="cliente"] #s-entrada .entrada {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  padding: 0;
+  align-items: stretch;
+  text-align: left;
+  gap: 20px;
+}
+
+/* ── Ocultar breadcrumb externo cuando s-entrada está activa en cliente ── */
+body[data-channel="cliente"][data-screen="s-entrada"] .page-shell > .breadcrumb,
+body[data-channel="cliente"]:not([data-screen]) .page-shell > .breadcrumb { display: none; }
+
+/* ── Publico: la columna derecha actúa como contenedor de flujo normal ── */
+body[data-channel="publico"] .entrada-col--right { display: contents; }
+
+/* ── Mobile (≤ 860px): apilar columnas ── */
+/* ── Tablet: colapsa a una sola columna pero conserva los dos paneles ── */
+@media (max-width: 860px) {
+  body[data-channel="cliente"] #s-entrada.screen--active {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  body[data-channel="cliente"] .entrada-col--left {
+    padding: 24px 20px 20px;
+    justify-content: flex-start;
+    gap: 20px;
+    min-height: 180px;
+  }
+  .entrada-illus--img { width: 140px; height: 140px; }
+  body[data-channel="cliente"] .entrada-col--right {
+    padding: 24px 20px;
+    gap: 16px;
+  }
+}
+
+/* ── Mobile: elimina panel izquierdo, muestra título inline, quita íconos ── */
+@media (max-width: 768px) {
+  /* Ocultar duplicado mobile por defecto para canal cliente en desktop */
+  .entrada__head--cliente-mobile { display: none; }
+
+  body[data-channel="cliente"] #s-entrada.screen--active {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Ocultar columna izquierda completa en mobile */
+  body[data-channel="cliente"] .entrada-col--left { display: none !important; }
+
+  /* Mostrar título/subtítulo mobile */
+  body[data-channel="cliente"] .entrada__head--cliente-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+    align-items: center;
+    max-width: none;
+  }
+
+  /* Columna derecha: columna normal sin padding extra */
+  body[data-channel="cliente"] .entrada-col--right {
+    padding: 0;
+    gap: 16px;
+  }
+
+  /* Las tarjetas de beneficios en mobile: sin ícono, apiladas */
+  body[data-channel="cliente"] .entrada-benefits {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  body[data-channel="cliente"] .entrada-benefit__icon { display: none; }
+  body[data-channel="cliente"] .entrada-benefit {
+    text-align: left;
+    gap: 4px;
+    padding: 12px 16px;
+  }
+
+  /* Restaurar padding del page-shell en mobile para entrada cliente */
+  body[data-channel="cliente"] .page-shell:has(#s-entrada.screen--active) {
+    padding: 20px 16px 48px;
+  }
+  body[data-channel="cliente"] .frame:has(#s-entrada.screen--active),
+  body[data-channel="cliente"] .page-shell:has(#s-entrada.screen--active) > .breadcrumb {
+    max-width: none;
+    margin: 0;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   MODALES — Financial Planner y confirmación
+════════════════════════════════════════════════════════════════════ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 20, 40, 0.52);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+  padding: 16px;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+.modal-overlay[hidden] { display: none; }
+
+.modal {
+  background: var(--neutral-00);
+  border-radius: var(--r-card);
+  padding: 28px 24px 24px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90dvh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22);
+  animation: modalIn 220ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.94) translateY(8px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);   }
+}
+
+.modal__title {
+  font-family: var(--title);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--texts-dark);
+  line-height: 1.25;
+}
+
+.modal__desc {
+  font-size: 14px;
+  color: var(--texts-medium);
+  line-height: 1.55;
+  margin-top: -10px;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal__req {
+  color: var(--feedback-error, #dc2626);
+  margin-left: 2px;
+}
+
+.modal__label--opt {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--primary-d01);
+}
+
+.modal__phone-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+/* Reutiliza el estilo del lead-indicativo */
+.modal__indicativo {
+  height: 56px;
+  padding: 0 32px 0 12px;
+  border: 1.5px solid var(--neutral-l04);
+  border-radius: var(--r-input);
+  background: var(--neutral-00) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 10px center;
+  appearance: none;
+  -webkit-appearance: none;
+  font-size: 14px;
+  color: var(--texts-dark);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.15s;
+}
+.modal__indicativo:focus {
+  outline: none;
+  border-color: var(--primary-d01);
+  box-shadow: 0 0 0 3px var(--primary-l04);
+}
+
+/* Inputs del modal: misma tipografía que el formulario de lead */
+.modal .field__input {
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: 15px;
+  padding-left: 16px;
+}
+.modal .field__input::placeholder {
+  font-size: 15px;
+}
+
+.modal__actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* ── Tarjeta de datos del asesor ─── */
+.modal__asesor-card {
+  background: var(--neutral-l02);
+  border: 1px solid var(--neutral-l03);
+  border-radius: var(--r-input);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal__asesor-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal__asesor-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary-l05);
+  color: var(--primary-00);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.modal__asesor-icon [data-lucide] { font-size: 18px; }
+
+.modal__asesor-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--texts-medium);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.modal__asesor-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--texts-dark);
+  line-height: 1.3;
+}
+
+/* ── Modal de confirmación ─── */
+.modal--confirm {
+  align-items: center;
+  text-align: center;
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.modal__success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--primary-l05);
+  color: var(--primary-00);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal__success-icon [data-lucide] { font-size: 28px; }
+
+.modal--confirm .modal__title { text-align: center; }
+.modal--confirm .modal__desc  { text-align: center; margin-top: -10px; max-width: 320px; }
+
+/* Botones del modal: altura confortable en mobile. flex-shrink:0 evita que column-flex
+   colapse la altura cuando btn--grow tiene flex-basis:0% en el eje principal. */
+.modal__actions .btn {
+  min-height: 56px;
+  height: 56px;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 479px) {
+  .modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .modal {
+    padding: 24px 20px calc(24px + env(safe-area-inset-bottom, 0px));
+    gap: 20px;
+    max-width: 100%;
+    max-height: 92dvh;
+    border-radius: var(--r-card) var(--r-card) 0 0;
+    animation: modalSlideUp 280ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  }
+  .modal__actions { flex-direction: column-reverse; }
+  .modal__actions .btn { width: 100%; }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   CANAL PÚBLICO · s-ingresos — card centrado (restaura el aspecto
+   que tenía antes del layout dos columnas del canal cliente)
+═══════════════════════════════════════════════════════════════════ */
+body[data-channel="publico"] #s-ingresos.screen--active {
+  max-width: min(560px, calc(100vw - 48px));
+  align-self: center;
+  width: 100%;
+}
+body[data-channel="publico"] .ingresos-col--right {
+  background: var(--neutral-00);
+  border: 1px solid var(--neutral-l03);
+  border-radius: var(--r-card);
+  padding: 24px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (max-width: 540px) {
+  body[data-channel="publico"] #s-ingresos.screen--active {
+    max-width: calc(100vw - 32px);
+  }
+  body[data-channel="publico"] .ingresos-col--right {
+    padding: 20px 16px;
+    gap: 16px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   CANAL PÚBLICO · s-ctas — card con fondo mint; nav links quedan
+   fuera del card (son hermanos de #ctas-content en .ctas-col--right)
+═══════════════════════════════════════════════════════════════════ */
+body[data-channel="publico"] .ctas-col--right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+body[data-channel="publico"] #ctas-content {
+  background: #EDFEFA;
+  border: 1px solid var(--primary-l04);
+  border-radius: var(--r-card);
+  padding: 24px 20px;
+}
+
+@media (max-width: 540px) {
+  body[data-channel="publico"] #ctas-content {
+    padding: 20px 16px;
+  }
+}

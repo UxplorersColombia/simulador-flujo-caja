@@ -1,3 +1,6 @@
 uploads/
 tweaks-app.jsx
 tweaks-panel.jsx
+simulador-v2/
+.playwright-mcp/
+screen-*.png

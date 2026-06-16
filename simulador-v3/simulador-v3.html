@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿A dónde va tu plata? · Skandia</title>
+<meta property="og:title" content="¿A dónde va tu plata? · Skandia">
+<meta name="description" content="Descubre tu situación financiera real en 2 pasos. Simulador gratuito de Skandia Colombia.">
+<link rel="icon" type="image/svg+xml" href="../assets/isotipo-simple-verde.svg">
+<link rel="stylesheet" href="../assets/colors_and_type.css">
+<link rel="stylesheet" href="../simulador.css">
+<link rel="stylesheet" href="simulador-v3.css">
+<script src="https://unpkg.com/lucide@0.453.0/dist/umd/lucide.min.js"></script>
+</head>
+<body data-channel="cliente" data-perfil="auto">
+<script>/* Setea data-channel antes de renderizar hijos — evita flash */
+(function(){var c=new URLSearchParams(location.search).get('canal');if(c==='publico'||c==='cliente')document.body.setAttribute('data-channel',c);})();
+</script>
+
+<!-- ══════════════════════════════════════════════
+     CHROME · HEADER (cambia por canal)
+════════════════════════════════════════════════ -->
+
+<!-- Header CLIENTE: portal logueado -->
+<aside class="sidebar" aria-label="Menú principal" style="border-radius: 0px">
+  <button class="sidebar__menu" aria-label="Abrir menú">
+    <i data-lucide="menu"></i>
+  </button>
+  <nav class="sidebar__nav" aria-label="Navegación">
+    <a href="#" class="sidebar__item sidebar__item--active">
+      <span class="sidebar__item-bar" aria-hidden="true"></span>
+      <i data-lucide="home"></i>
+      <span>Inicio</span>
+    </a>
+    <a href="#" class="sidebar__item"><i data-lucide="refresh-cw"></i><span>Transacciones</span></a>
+    <a href="#" class="sidebar__item"><i data-lucide="pie-chart"></i><span>Inversiones</span></a>
+    <a href="#" class="sidebar__item"><i data-lucide="file-text"></i><span>Documentos</span></a>
+    <a href="#" class="sidebar__item"><i data-lucide="help-circle"></i><span>Ayuda</span></a>
+  </nav>
+  <a href="#" class="sidebar__item sidebar__item--logout">
+    <i data-lucide="log-in" style="transform:scaleX(-1)"></i>
+    <span>Salir</span>
+  </a>
+</aside>
+
+<header class="topbar" aria-label="Barra superior">
+  <a class="topbar__brand" href="#" aria-label="Skandia">
+    <img src="../assets/isotipo-simple-verde.svg" alt="Skandia" height="32">
+  </a>
+  <div class="topbar__spacer"></div>
+  <button type="button" class="topbar__notif" aria-label="Notificaciones">
+    <i data-lucide="bell"></i>
+    <span class="topbar__notif-badge" aria-hidden="true">1</span>
+  </button>
+  <button type="button" class="topbar__actions">
+    <i data-lucide="zap" class="topbar__actions-ico"></i>
+    Acciones rápidas
+    <i data-lucide="chevron-down"></i>
+  </button>
+  <button type="button" class="topbar__user">
+    <span class="topbar__avatar" id="chrome-avatar">JA</span>
+    <span class="topbar__greeting">Hola, <strong id="chrome-user-name">Javier</strong> <span class="topbar__wave" aria-hidden="true">👋</span></span>
+    <i data-lucide="chevron-down"></i>
+  </button>
+</header>
+
+<!-- Header PÚBLICO: solo logo centrado -->
+<header class="chrome chrome--publico" aria-label="Skandia Colombia">
+  <div class="chrome__inner chrome__inner--centered">
+    <a class="chrome__brand" href="#" aria-label="Skandia">
+      <img src="../assets/logo-color.svg" alt="Skandia" height="24">
+    </a>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════
+     PAGE · SHELL ENVOLVENTE
+════════════════════════════════════════════════ -->
+<div class="page-shell">
+
+  <!-- Breadcrumb (solo Cliente) -->
+  <nav class="breadcrumb" aria-label="Ubicación">
+    <a href="#" class="breadcrumb__back" aria-label="Volver a Inicio" onclick="irAtras(); return false;">
+      <i data-lucide="arrow-left"></i>
+    </a>
+    <a href="#" class="breadcrumb__crumb">Inicio</a>
+    <span class="breadcrumb__sep">/</span>
+    <a href="#" class="breadcrumb__crumb">Simuladores</a>
+    <span class="breadcrumb__sep">/</span>
+    <span class="breadcrumb__current" aria-current="page">Flujo de caja</span>
+  </nav>
+
+  <main id="simulador-main" aria-label="Simulador de flujo de caja">
+  <div class="frame">
+
+    <!-- Breadcrumb compartido (canal cliente, visible en pasos 2–5) -->
+    <nav class="breadcrumb frame-breadcrumb" aria-label="Ubicación">
+      <a href="#" class="breadcrumb__back" aria-label="Volver" onclick="irAtras(); return false;"><i data-lucide="arrow-left"></i></a>
+      <a href="#" class="breadcrumb__crumb">Inicio</a>
+      <span class="breadcrumb__sep">/</span>
+      <a href="#" class="breadcrumb__crumb">Simuladores</a>
+      <span class="breadcrumb__sep">/</span>
+      <span class="breadcrumb__current" aria-current="page">Flujo de caja</span>
+    </nav>
+
+    <!-- ══════════════════════════════════════════════
+         PANTALLA 0 — ENTRADA
+    ════════════════════════════════════════════════ -->
+    <section class="screen screen--active" id="s-entrada" data-screen-label="01 Entrada">
+
+      <!-- ══ COLUMNA IZQUIERDA — ilustración + intro (canal cliente) ══ -->
+      <div class="entrada-col entrada-col--left">
+        <nav class="breadcrumb" aria-label="Ubicación">
+          <a href="#" class="breadcrumb__back" aria-label="Volver" onclick="irAtras(); return false;">
+            <i data-lucide="arrow-left"></i>
+          </a>
+          <a href="#" class="breadcrumb__crumb">Inicio</a>
+          <span class="breadcrumb__sep">/</span>
+          <a href="#" class="breadcrumb__crumb">Simuladores</a>
+          <span class="breadcrumb__sep">/</span>
+          <span class="breadcrumb__current" aria-current="page">Flujo de caja</span>
+        </nav>
+
+        <div class="entrada-illus entrada-illus--img" aria-hidden="true">
+          <img src="../assets/flujo_caja.webp" alt="" class="entrada-illus__img">
+        </div>
+
+        <div class="entrada__head">
+          <h1 class="entrada__title">¿A dónde va tu plata cada mes?</h1>
+          <p class="entrada__sub">
+            Descubre tu situación financiera real en 2 pasos y conoce qué puedes hacer para mejorarla.
+          </p>
+        </div>
+      </div>
+
+      <!-- ══ COLUMNA DERECHA — contenido del simulador ══ -->
+      <div class="entrada-col entrada-col--right">
+
+        <!-- Título y subtítulo (solo canal cliente en mobile) -->
+        <div class="entrada__head entrada__head--cliente-mobile">
+          <h1 class="entrada__title">¿A dónde va tu plata cada mes?</h1>
+          <p class="entrada__sub">Descubre tu situación financiera real en 2 pasos y conoce qué puedes hacer para mejorarla.</p>
+        </div>
+
+        <!-- Hero animado (solo canal público) -->
+        <div class="hero" aria-hidden="true">
+          <div class="hero__ring hero__ring--outer"></div>
+          <div class="hero__ring hero__ring--inner"></div>
+          <div class="hero__core">
+            <i data-lucide="pie-chart"></i>
+          </div>
+          <span class="hero__chip">2 min</span>
+        </div>
+
+        <nav class="progress" aria-label="Progreso">
+          <div class="progress__bar">
+            <span class="progress__seg progress__seg--done"></span>
+            <span class="progress__seg"></span>
+            <span class="progress__seg"></span>
+          </div>
+          <div class="progress__meta">
+            <span class="progress__count">Paso 1 de 3</span>
+            <span class="progress__sep">·</span>
+            <span class="progress__name">Tus datos</span>
+          </div>
+        </nav>
+
+        <!-- Título y subtítulo (solo canal público) -->
+        <div class="entrada__head entrada__head--publico">
+          <h1 class="entrada__title">¿A dónde va tu plata cada mes?</h1>
+          <p class="entrada__sub">Descubre tu situación financiera real en 2 pasos y conoce qué puedes hacer para mejorarla.</p>
+        </div>
+
+        <div class="entrada anim-in">
+
+          <!-- Label beneficios -->
+          <p class="entrada__benefits-label">Qué puedes esperar con este simulador:</p>
+
+          <!-- Beneficios: lista vertical (solo canal público) -->
+          <ul class="benefits" aria-label="Qué puedes esperar">
+            <li class="benefit">
+              <span class="benefit__icon"><i data-lucide="shield"></i></span>
+              <span class="benefit__text">Tu información es privada y no se almacena.</span>
+            </li>
+            <li class="benefit">
+              <span class="benefit__icon"><i data-lucide="zap"></i></span>
+              <span class="benefit__text">Resultado inmediato al terminar.</span>
+            </li>
+            <li class="benefit">
+              <span class="benefit__icon"><i data-lucide="message-square"></i></span>
+              <span class="benefit__text">Sin tecnicismos — solo preguntas sencillas.</span>
+            </li>
+          </ul>
+
+          <!-- Beneficios: tarjetas (canal cliente y público) -->
+          <div class="entrada-benefits" role="list" aria-label="Qué puedes esperar">
+            <div class="entrada-benefit" role="listitem">
+              <span class="entrada-benefit__icon"><i data-lucide="zap"></i></span>
+              <strong class="entrada-benefit__title">Resultado inmediato</strong>
+              <p class="entrada-benefit__desc">Obtén tu diagnóstico financiero al terminar, sin esperas.</p>
+            </div>
+            <div class="entrada-benefit" role="listitem">
+              <span class="entrada-benefit__icon"><i data-lucide="message-circle"></i></span>
+              <strong class="entrada-benefit__title">Sin tecnicismos</strong>
+              <p class="entrada-benefit__desc">Solo preguntas sencillas, sin jerga financiera.</p>
+            </div>
+            <!-- Tarjeta 3 canal público: envío por correo (PDF) -->
+            <div class="entrada-benefit entrada-benefit--publico-only" role="listitem">
+              <span class="entrada-benefit__icon"><i data-lucide="file-text"></i></span>
+              <strong class="entrada-benefit__title">Tu diagnóstico en PDF</strong>
+              <p class="entrada-benefit__desc">Al terminar, te enviamos el resumen completo a tu correo para revisarlo cuando quieras.</p>
+            </div>
+            <!-- Tarjeta 3 canal cliente: diagnóstico personalizado -->
+            <div class="entrada-benefit entrada-benefit--cliente-only" role="listitem">
+              <span class="entrada-benefit__icon"><i data-lucide="bar-chart-2"></i></span>
+              <strong class="entrada-benefit__title">Diagnóstico personalizado</strong>
+              <p class="entrada-benefit__desc">Al terminar obtienes un análisis claro de tus finanzas con recomendaciones concretas.</p>
+            </div>
+          </div>
+
+          <!-- Formulario de captura de leads (solo canal público) -->
+          <div class="lead-form card card--lead" id="lead-form" aria-label="Tus datos de contacto">
+
+            <div class="field">
+              <div class="field__label-row">
+                <label class="field__label" for="lead-nombre">Nombre completo <span class="lead-required" aria-label="requerido">*</span></label>
+              </div>
+              <div class="field__input-wrap">
+                <input
+                  type="text"
+                  id="lead-nombre"
+                  class="field__input"
+                  placeholder="Ej: María Alejandra Gómez"
+                  autocomplete="name"
+                  oninput="onLeadInput()"
+                >
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="field__label-row">
+                <label class="field__label" for="lead-email">Correo electrónico <span class="lead-required" aria-label="requerido">*</span></label>
+              </div>
+              <div class="field__input-wrap">
+                <input
+                  type="email"
+                  id="lead-email"
+                  class="field__input"
+                  placeholder="nombre@correo.com"
+                  autocomplete="email"
+                  inputmode="email"
+                  oninput="onLeadInput()"
+                >
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="field__label-row">
+                <label class="field__label" for="lead-telefono">Teléfono de contacto <span class="lead-required" aria-label="requerido">*</span></label>
+              </div>
+              <div class="lead-phone-row">
+                <select id="lead-indicativo" class="lead-indicativo" onchange="onLeadInput()" aria-label="Indicativo del país">
+                  <option value="+57">🇨🇴 +57</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+34">🇪🇸 +34</option>
+                  <option value="+52">🇲🇽 +52</option>
+                  <option value="+54">🇦🇷 +54</option>
+                </select>
+                <div class="field__input-wrap" style="flex:1">
+                  <input
+                    type="tel"
+                    id="lead-telefono"
+                    class="field__input"
+                    placeholder="300 123 4567"
+                    inputmode="numeric"
+                    autocomplete="tel"
+                    oninput="onLeadInput()"
+                  >
+                </div>
+              </div>
+              <p class="lead-phone-hint">Tu teléfono nos permite agilizar el contacto con un asesor si lo necesitas.</p>
+            </div>
+
+            <div class="lead-toggle-row">
+              <span class="field__label">¿Eres cliente Skandia?</span>
+              <label class="toggle-switch" aria-label="¿Eres cliente Skandia?">
+                <input type="checkbox" id="lead-es-cliente" onchange="onLeadInput()">
+                <span class="toggle-switch__track"></span>
+              </label>
+            </div>
+
+          </div><!-- /lead-form -->
+
+          <!-- Consentimiento de datos (solo canal público) -->
+          <label class="lead-consent lead-consent--publico" for="lead-consent-check">
+            <input type="checkbox" id="lead-consent-check" class="lead-consent__input" onchange="onLeadInput()">
+            <span class="lead-consent__box" aria-hidden="true"></span>
+            <span class="lead-consent__text">
+              He leído y acepto la <a href="https://www.skandia.com.co/politica-de-privacidad" target="_blank" rel="noopener" class="lead-consent__link">Política de Tratamiento de Datos Personales</a> de Skandia. Autorizo el tratamiento de mis datos para la personalización de esta simulación y, si lo solicito, para el contacto con un asesor.
+            </span>
+          </label>
+
+          <button type="button" id="btn-comenzar" class="btn btn--primary btn--full" onclick="comenzar()">
+            Comenzar simulación
+            <i data-lucide="arrow-right"></i>
+          </button>
+          <span id="lead-form-helper" class="btn-helper" aria-live="polite" hidden>
+            Completa los campos y acepta la política para continuar
+          </span>
+
+          <!-- Aviso legal -->
+          <details class="legal">
+            <summary>Aviso legal</summary>
+            <p>
+              Esta herramienta tiene carácter informativo y orientativo. No constituye asesoría
+              financiera personalizada. © Skandia Colombia 2026.
+            </p>
+          </details>
+
+        </div><!-- /entrada -->
+      </div><!-- /entrada-col--right -->
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         PANTALLA 1 — INGRESOS
+         A3: múltiples fuentes de ingreso
+    ════════════════════════════════════════════════ -->
+    <section class="screen" id="s-ingresos" data-screen-label="02 Ingresos">
+
+      <!-- ══ COLUMNA IZQUIERDA — ilustración + intro (canal cliente) ══ -->
+      <div class="ingresos-col ingresos-col--left">
+        <nav class="breadcrumb" aria-label="Ubicación">
+          <a href="#" class="breadcrumb__back" aria-label="Volver" onclick="irAtras(); return false;">
+            <i data-lucide="arrow-left"></i>
+          </a>
+          <a href="#" class="breadcrumb__crumb">Inicio</a>
+          <span class="breadcrumb__sep">/</span>
+          <a href="#" class="breadcrumb__crumb">Simuladores</a>
+          <span class="breadcrumb__sep">/</span>
+          <span class="breadcrumb__current" aria-current="page">Flujo de caja</span>
+        </nav>
+
+        <div class="ingresos-illus" aria-hidden="true">
+          <img src="../assets/flujo_caja.webp" alt="" class="ingresos-illus__img">
+        </div>
+
+        <div class="ingresos__head">
+          <h2 class="ingresos__title">¿A dónde va tu plata cada mes?</h2>
+          <p class="ingresos__sub">Descubre tu situación financiera real en 2 pasos y conoce qué puedes hacer para mejorarla.</p>
+        </div>
+      </div>
+
+      <!-- ══ COLUMNA DERECHA — formulario de ingresos ══ -->
+      <div class="ingresos-col ingresos-col--right">
+
+        <nav class="progress" aria-label="Progreso">
+          <div class="progress__bar">
+            <span class="progress__seg progress__seg--done"></span>
+            <span class="progress__seg progress__seg--done"></span>
+            <span class="progress__seg"></span>
+          </div>
+          <div class="progress__meta">
+            <span class="progress__count">Paso 2 de 3</span>
+            <span class="progress__sep">·</span>
+            <span class="progress__name">Tus ingresos</span>
+          </div>
+        </nav>
+
+        <div class="section-title">
+          <div class="section-title__icon">
+            <i data-lucide="arrow-down-to-line"></i>
+          </div>
+          <div>
+            <h2 class="section-title__h">Tus ingresos</h2>
+            <p class="section-title__sub">¿Cuánto entra a tu cuenta de forma regular cada mes?</p>
+          </div>
+        </div>
+
+        <!-- Callout neto vs bruto — antes del input para dar contexto -->
+        <div class="callout callout--info">
+          <span class="callout__icon"><i data-lucide="info"></i></span>
+          <div class="callout__text">
+            <strong>Usa tu sueldo neto.</strong>
+            Es la plata que efectivamente llega a tu cuenta cada mes, después de descuentos como salud, pensión y retenciones.
+          </div>
+        </div>
+
+        <!-- Fuentes de ingreso (generadas por JS — buildFuentes) -->
+        <div id="fuentes-list"></div>
+
+        <!-- Botón agregar fuente adicional (A3) -->
+        <button type="button" id="btn-agregar-fuente" class="btn btn--ghost btn--full" onclick="agregarFuente()">
+          <i data-lucide="plus"></i>
+          <span class="btn-label">Agregar otra fuente de ingreso</span>
+        </button>
+
+        <!-- Total (visible solo si hay múltiples fuentes) -->
+        <div class="total-ingresos" id="total-ingresos-wrap" hidden>
+          <span class="total-ingresos__label">Total mensual estimado:</span>
+          <span class="total-ingresos__value" id="total-ingresos-valor"></span>
+        </div>
+
+        <!-- Hint variables -->
+        <div class="hint">
+          <span class="hint__icon"><i data-lucide="lightbulb"></i></span>
+          <p class="hint__text">
+            Incluye solo lo que recibes de forma estable. Si tu ingreso varía,
+            usa el promedio de los últimos 3 meses.
+          </p>
+        </div>
+
+        <div class="nav-btns" style="flex-direction: column-reverse; gap: 8px;">
+          <button type="button" class="btn btn--ghost btn--full" onclick="ir('s-entrada')">
+            <i data-lucide="chevron-left"></i>
+            Volver
+          </button>
+          <button
+            type="button"
+            id="btn-continuar"
+            class="btn btn--primary btn--full"
+            onclick="ir('s-distribucion')"
+            disabled
+          >
+            Continuar
+            <i data-lucide="arrow-right"></i>
+          </button>
+        </div>
+        <span id="continuar-helper" class="btn-helper" aria-live="polite">Ingresa al menos un monto para continuar</span>
+
+      </div><!-- /ingresos-col--right -->
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         PANTALLA 2 — DISTRIBUCIÓN
+         V1: slider + monto siempre visibles
+         V2: periodicidad por categoría
+         A2: gasto sin categoría
+    ════════════════════════════════════════════════ -->
+    <section class="screen" id="s-distribucion" data-screen-label="03 Distribución">
+
+      <nav class="progress" aria-label="Progreso">
+        <div class="progress__bar">
+          <span class="progress__seg progress__seg--done"></span>
+          <span class="progress__seg progress__seg--done"></span>
+          <span class="progress__seg progress__seg--done"></span>
+        </div>
+        <div class="progress__meta">
+          <span class="progress__count">Paso 3 de 3</span>
+          <span class="progress__sep">·</span>
+          <span class="progress__name">Tu distribución</span>
+        </div>
+      </nav>
+
+      <div class="card anim-in">
+
+        <div class="section-title">
+          <div class="section-title__icon">
+            <i data-lucide="sliders-horizontal"></i>
+          </div>
+          <div>
+            <h2 class="section-title__h">¿Cómo se reparte tu plata?</h2>
+            <p class="section-title__sub">Mueve los controles para que reflejen tu realidad.</p>
+          </div>
+        </div>
+
+        <!-- Hint "No tienes que ser exacto/a" — visible above the fold (M1) -->
+        <div class="hint hint--prominent">
+          <span class="hint__icon"><i data-lucide="check-circle-2"></i></span>
+          <p class="hint__text">
+            No tienes que ser exacto o exacta. Una estimación honesta ya te da información valiosa sobre tu flujo.
+          </p>
+        </div>
+
+        <!-- Barra proporcional + leyenda -->
+        <div class="distro" aria-label="Distribución del ingreso" role="img">
+          <div class="distro__bar" id="distro-bar">
+            <div class="distro__seg" data-key="vitales"></div>
+            <div class="distro__seg" data-key="deudas"></div>
+            <div class="distro__seg" data-key="gustos"></div>
+            <div class="distro__seg" data-key="cotidianos"></div>
+            <div class="distro__seg" data-key="futuro"></div>
+            <div class="distro__seg" data-key="otros"></div>
+            <div class="distro__seg distro__seg--margen" data-key="margen"></div>
+          </div>
+          <div class="distro__legend">
+            <span class="legend"><span class="legend__dot" data-key="vitales"></span>Vitales</span>
+            <span class="legend"><span class="legend__dot" data-key="deudas"></span>Deudas</span>
+            <span class="legend"><span class="legend__dot" data-key="gustos"></span>Gustos</span>
+            <span class="legend"><span class="legend__dot" data-key="cotidianos"></span>Cotidianos</span>
+            <span class="legend"><span class="legend__dot" data-key="futuro"></span>Futuro</span>
+            <span class="legend"><span class="legend__dot legend__dot--otros"></span>Otros</span>
+            <span class="legend"><span class="legend__dot legend__dot--margen"></span>Margen disponible</span>
+          </div>
+        </div>
+
+        <!-- Layout dos columnas (desktop) -->
+        <div class="distro-grid">
+
+          <!-- Sliders (generados por JS — buildSliders) -->
+          <div>
+            <div class="sliders" id="sliders-list"></div>
+
+            <!-- Gastos sin categoría (A2) -->
+            <div class="custom-section">
+              <p class="custom-section__title">Otros gastos</p>
+              <div id="custom-otros-list"></div>
+
+              <div id="custom-form" hidden>
+                <div class="custom-form__row">
+                  <input
+                    type="text"
+                    id="custom-nombre"
+                    class="custom-form__nombre"
+                    placeholder="¿Qué tipo de gasto? (ej: mascotas, hijos)"
+                    maxlength="40"
+                  >
+                </div>
+                <div class="custom-form__row">
+                  <div class="amount-input" style="flex:1">
+                    <span class="amount-input__prefix">$</span>
+                    <input
+                      type="text"
+                      inputmode="numeric"
+                      id="custom-monto"
+                      class="amount-input__field"
+                      placeholder="0"
+                      autocomplete="off"
+                      oninput="onCustomMontoInput(this)"
+                    >
+                  </div>
+                  <select id="custom-periodicidad" class="periodo-select">
+                    <option value="mensual" selected>Mensual</option>
+                    <option value="quincenal">Quincenal</option>
+                    <option value="bimestral">Bimestral</option>
+                    <option value="semestral">Semestral</option>
+                    <option value="anual">Anual</option>
+                  </select>
+                </div>
+                <div class="custom-form__actions">
+                  <button type="button" class="btn btn--ghost btn--small" onclick="toggleCustomForm()">
+                    Cancelar
+                  </button>
+                  <button type="button" class="btn btn--primary btn--small" onclick="agregarGastoPersonalizado()">
+                    <i data-lucide="plus"></i>
+                    Agregar
+                  </button>
+                </div>
+              </div>
+
+              <button type="button" id="btn-agregar-otro" class="btn btn--ghost btn--full" onclick="toggleCustomForm()">
+                <i data-lucide="plus"></i>
+                <span class="btn-label">Agregar gasto sin categoría</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right rail: resumen + nav -->
+          <aside class="distro-rail">
+            <div class="margen-res" id="margen-res" aria-live="polite">
+              <div class="margen-res__left">
+                <span class="margen-res__icon"><i data-lucide="check-circle-2"></i></span>
+                <div>
+                  <p class="margen-res__label" id="margen-label">Margen disponible</p>
+                  <p class="margen-res__sub" id="margen-sub">Lo que queda después de todo lo demás</p>
+                </div>
+              </div>
+              <div class="margen-res__right">
+                <span class="margen-res__pct" id="margen-pct">25%</span>
+                <span class="margen-res__cop" id="margen-cop"></span>
+              </div>
+            </div>
+
+            <!-- Botones nav -->
+            <div class="nav-btns" style="flex-direction: column-reverse; gap: 8px;">
+              <button type="button" class="btn btn--ghost btn--full" onclick="ir('s-ingresos')">
+                <i data-lucide="chevron-left"></i>
+                Volver
+              </button>
+              <button type="button" class="btn btn--primary btn--full" onclick="ir('s-diagnostico')">
+                Ver mi diagnóstico
+                <i data-lucide="arrow-right"></i>
+              </button>
+            </div>
+          </aside>
+
+        </div><!-- /distro-grid -->
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         PANTALLA 3 — DIAGNÓSTICO
+         R1: % Futuro correcto
+         A1: Margen disponible (excl. ahorro)
+         V5: chips de referencia
+    ════════════════════════════════════════════════ -->
+    <section class="screen" id="s-diagnostico" data-screen-label="04 Diagnóstico">
+
+      <div class="card card--diag anim-in" id="diag-main">
+        <div class="diag-head">
+          <div class="semaforo" aria-hidden="true">
+            <span class="semaforo__dot" data-tone="red"></span>
+            <span class="semaforo__dot" data-tone="yellow"></span>
+            <span class="semaforo__dot" data-tone="green"></span>
+          </div>
+          <div class="diag-head__text">
+            <h2 class="diag-head__title" id="diag-title">Tu flujo está saludable</h2>
+            <p class="diag-head__sub" id="diag-sub">Tus ingresos cubren tus gastos con margen positivo.</p>
+          </div>
+        </div>
+
+        <div class="diag-figures" id="diag-figures">
+          <div class="figure">
+            <span class="figure__label" id="diag-margen-label">Margen disponible (sin contar el ahorro)</span>
+            <span class="figure__value" id="diag-margen-valor">—</span>
+            <span class="figure__hint" id="diag-margen-sub"></span>
+          </div>
+          <span class="figure__sep"></span>
+          <div class="figure figure--right">
+            <span class="figure__label">
+              Disponible del ingreso
+              <span class="tip-wrap">
+                <button type="button" class="tip-trigger" aria-label="¿Qué significa este porcentaje?"
+                        data-tip-for="tip-margen-pct" onclick="toggleTip(this)">
+                  <i data-lucide="help-circle"></i>
+                </button>
+                <span class="tip-pop" role="tooltip" id="tip-margen-pct">
+                  Porcentaje de tus ingresos que queda libre después de cubrir todos tus gastos y el ahorro programado.
+                </span>
+              </span>
+            </span>
+            <span class="figure__value" id="diag-margen-pct">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card anim-in anim-in--1" id="diag-body" hidden>
+        <p id="diag-body-text"></p>
+      </div>
+
+      <div class="card anim-in anim-in--1" id="diag-alertas-card">
+        <h3 class="card__title">Tu diagnóstico</h3>
+        <div id="diag-body-inline"></div>
+        <ul class="alertas" id="alertas-list"></ul>
+      </div>
+
+      <div class="card anim-in anim-in--2" id="diag-proyecciones" hidden>
+        <div class="card-proyecciones-head">
+          <h3 class="card__title">Tu futuro</h3>
+          <div class="carousel__nav" role="group" aria-label="Navegar proyecciones">
+            <button type="button" class="carousel__arrow btn btn--ghost btn--small" onclick="shiftCarousel(-1)" aria-label="Anterior">
+              <i data-lucide="chevron-left"></i>
+            </button>
+            <span class="carousel__counter" id="carousel-counter" aria-live="polite">1 / 3</span>
+            <button type="button" class="carousel__arrow btn btn--ghost btn--small" onclick="shiftCarousel(1)" aria-label="Siguiente">
+              <i data-lucide="chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <p class="card__sub" id="proyecciones-sub"></p>
+        <div class="carousel__track" id="proyecciones-list"></div>
+        <div class="carousel__dots" id="carousel-dots"></div>
+      </div>
+
+      <!-- Mini-CTA que lleva a Pantalla 4 (generado por JS — renderDiagnostico) -->
+      <div class="card card--brand anim-in anim-in--3" id="diag-ctas"></div>
+
+      <div class="diag__back">
+        <button type="button" class="linkbtn" onclick="ir('s-distribucion')">
+          <i data-lucide="chevron-left"></i>
+          Volver a ajustar
+        </button>
+        <span class="diag__back-sep" aria-hidden="true">·</span>
+        <button type="button" class="linkbtn linkbtn--destructive" onclick="reiniciar()">
+          <i data-lucide="rotate-ccw"></i>
+          Volver a empezar
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         PANTALLA 4 — SIGUIENTE PASO (CTAs de avance)
+         R2: CTAs personalizados por perfil
+    ════════════════════════════════════════════════ -->
+    <section class="screen" id="s-ctas" data-screen-label="05 Siguiente paso">
+
+      <!-- ══ COLUMNA IZQUIERDA — ilustración + intro (canal cliente) ══ -->
+      <div class="ctas-col ctas-col--left">
+        <nav class="breadcrumb" aria-label="Ubicación">
+          <a href="#" class="breadcrumb__back" aria-label="Volver" onclick="irAtras(); return false;">
+            <i data-lucide="arrow-left"></i>
+          </a>
+          <a href="#" class="breadcrumb__crumb">Inicio</a>
+          <span class="breadcrumb__sep">/</span>
+          <a href="#" class="breadcrumb__crumb">Simuladores</a>
+          <span class="breadcrumb__sep">/</span>
+          <span class="breadcrumb__current" aria-current="page">Flujo de caja</span>
+        </nav>
+
+        <div class="ctas-illus" aria-hidden="true">
+          <img src="../assets/flujo_caja.webp" alt="" class="ctas-illus__img">
+        </div>
+
+        <div class="ctas__head-left">
+          <h2 class="ctas__title-left">¿A dónde va tu plata cada mes?</h2>
+          <p class="ctas__sub-left">Descubre tu situación financiera real en 2 pasos y conoce qué puedes hacer para mejorarla.</p>
+        </div>
+      </div>
+
+      <!-- ══ COLUMNA DERECHA — CTAs generados por JS ══ -->
+      <div class="ctas-col ctas-col--right">
+
+        <!-- Contenido generado por JS — renderPantallaCTAs() -->
+        <div id="ctas-content" class="anim-in"></div>
+
+        <div class="diag__back">
+          <button type="button" class="linkbtn" onclick="ir('s-diagnostico')">
+            <i data-lucide="chevron-left"></i>
+            Ver diagnóstico
+          </button>
+          <span class="diag__back-sep" aria-hidden="true">·</span>
+          <button type="button" class="linkbtn" onclick="ir('s-distribucion')">
+            <i data-lucide="sliders-horizontal"></i>
+            Volver a ajustar
+          </button>
+          <span class="diag__back-sep" aria-hidden="true">·</span>
+          <button type="button" class="linkbtn linkbtn--destructive" onclick="reiniciar()">
+            <i data-lucide="rotate-ccw"></i>
+            Volver a empezar
+          </button>
+        </div>
+
+      </div><!-- /ctas-col--right -->
+
+    </section>
+
+  </div><!-- /frame -->
+  </main><!-- /simulador-main -->
+
+  <!-- Footer público -->
+  <footer class="site-footer">
+    <details class="legal legal--footer">
+      <summary>
+        <i data-lucide="shield-check"></i>
+        Aviso legal
+      </summary>
+      <p>
+        Esta herramienta tiene carácter informativo y orientativo. No constituye asesoría
+        financiera personalizada. © Skandia Colombia 2026. Vigilado por la
+        Superintendencia Financiera de Colombia.
+      </p>
+    </details>
+  </footer>
+
+<!-- ══ Modal Financial Planner (público: form / cliente: datos asesor) ══ -->
+<div id="modal-asesor"       class="modal-overlay" hidden></div>
+<!-- ══ Modal confirmación de envío ══════════════════════════════════ -->
+<div id="modal-confirmacion" class="modal-overlay" hidden></div>
+
+</div><!-- /page-shell -->
+
+<script src="simulador-v3.js"></script>
+
+</body>
+</html>

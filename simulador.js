@@ -471,8 +471,9 @@ function renderDiagnostico() {
     proy.hidden = false;
     ctasEl.classList.remove('diag-ctas--full-row');
     alertasCard.classList.remove('diag-alertas--full-row');
-    document.getElementById('proyecciones-sub').textContent =
-      `Con ${formatCOP(futuroPesos)} al mes guardados en Skandia:`;
+    document.getElementById('proyecciones-sub').textContent = state.channel === 'cliente'
+      ? `Con ${formatCOP(futuroPesos)} al mes guardados en Skandia:`
+      : `Si guardaras ${formatCOP(futuroPesos)} al mes en Skandia:`;
     state._carouselIdx = 0;
     renderCarousel(futuroPesos);
   } else {
@@ -579,19 +580,23 @@ window.goCarousel = goCarousel;
 
 function renderCTAs(perfil) {
   const el = document.getElementById('diag-ctas');
+  const esCliente = state.channel === 'cliente';
+
   if (perfil === 'riesgo') {
     el.innerHTML = `
       <div class="ctas">
         <div class="ctas__head">
-          <h3 class="ctas__title">Siguiente paso</h3>
+          <h3 class="ctas__title">¿Por dónde puedes empezar?</h3>
           <p class="ctas__sub">Entender tu situación es el primer paso. Estos recursos pueden ayudarte a dar el siguiente.</p>
         </div>
         <div class="ctas__item">
           <button type="button" class="btn btn--primary btn--full">
             <i data-lucide="book-open"></i>
-            Aprender con Skandia
+            ${esCliente ? 'Aprender con Skandia' : 'Conoce cómo mejorar tu flujo'}
           </button>
-          <p class="ctas__note">Encuentra guías y contenidos para entender mejor tu plata y cómo mejorar tu flujo.</p>
+          <p class="ctas__note">${esCliente
+            ? 'Encuentra guías y contenidos para entender mejor tu plata y cómo mejorar tu flujo.'
+            : 'Guías prácticas para entender tu plata y dar el primer paso hacia una mejor gestión.'}</p>
         </div>
         <div class="ctas__item">
           <button type="button" class="btn btn--secondary btn--full">
@@ -602,7 +607,7 @@ function renderCTAs(perfil) {
         </div>
       </div>
     `;
-  } else {
+  } else if (esCliente) {
     el.innerHTML = `
       <div class="ctas">
         <div class="ctas__head">
@@ -618,6 +623,29 @@ function renderCTAs(perfil) {
             Explorar más opciones
             <i data-lucide="arrow-right"></i>
           </button>
+        </div>
+      </div>
+    `;
+  } else {
+    el.innerHTML = `
+      <div class="ctas">
+        <div class="ctas__head">
+          <h3 class="ctas__title">Da el siguiente paso</h3>
+          <p class="ctas__sub">Haz que ese margen trabaje para ti desde hoy.</p>
+        </div>
+        <div class="ctas__item">
+          <button type="button" class="btn btn--primary btn--full">
+            <i data-lucide="rocket"></i>
+            Empieza con Skandia
+          </button>
+          <p class="ctas__note">Abre tu cuenta y empieza a hacer crecer tu plata con fondos de inversión.</p>
+        </div>
+        <div class="ctas__item">
+          <button type="button" class="btn btn--secondary btn--full">
+            <i data-lucide="headphones"></i>
+            Habla con un asesor
+          </button>
+          <p class="ctas__note">Un Financial Planner te explica sin compromiso cómo hacer crecer lo que ya tienes.</p>
         </div>
       </div>
     `;
