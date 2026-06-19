@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="../simulador.css">
 <link rel="stylesheet" href="simulador-v3.css">
 <script src="https://unpkg.com/lucide@0.453.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
 </head>
 <body data-channel="cliente" data-perfil="auto">
 <script>/* Setea data-channel antes de renderizar hijos — evita flash */
@@ -768,6 +769,22 @@
 <div id="modal-asesor"       class="modal-overlay" hidden></div>
 <!-- ══ Modal confirmación de envío ══════════════════════════════════ -->
 <div id="modal-confirmacion" class="modal-overlay" hidden></div>
+<!-- ══ Modal proyección de ahorro ════════════════════════════════════ -->
+<div id="modal-proyeccion" class="modal-overlay" hidden onclick="if(event.target===this)cerrarModalProyeccion()">
+  <div class="modal modal--chart" role="dialog" aria-modal="true" aria-labelledby="modal-proyeccion-title">
+    <button type="button" class="modal__close" onclick="cerrarModalProyeccion()" aria-label="Cerrar">
+      <i data-lucide="x"></i>
+    </button>
+    <h2 class="modal__title" id="modal-proyeccion-title">Proyección de tu ahorro</h2>
+    <p class="modal__sub" id="modal-proyeccion-sub"></p>
+    <div class="modal__chart-wrap">
+      <canvas id="chart-proyeccion" aria-label="Gráfica de proyección de ahorro"></canvas>
+    </div>
+    <p class="modal__disclaimer">
+      La gráfica es ilustrativa basada en el desempeño previo de la rentabilidad del portafolio durante los últimos 365 días. No es un pronóstico sobre el comportamiento futuro del portafolio ni es indicativa de futuros resultados.
+    </p>
+  </div>
+</div>
 <!-- ══ Modal confirmación de reinicio ═══════════════════════════════ -->
 <div id="modal-reinicio" class="modal-overlay" hidden onclick="if(event.target===this)cerrarModalReinicio()">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-reinicio-title">

@@ -1179,9 +1179,9 @@ function generarAlertas(perfil, margenPct, margenPesos) {
 function renderCarousel(futuroPesos) {
   state._futuroPesos   = futuroPesos;
   const items = [
-    { icon: 'shield', title: 'Tu fondo de emergencia',       hor: '6 meses', monto: futuroPesos * 6,  desc: 'Un colchón para imprevistos sin endeudarte.', rec: true },
-    { icon: 'sprout', title: 'Tu primer fondo de inversión', hor: '1 año',   monto: futuroPesos * 12, desc: 'Tu dinero trabajando para ti en fondos Skandia.', rec: false },
-    { icon: 'plane',  title: 'Tu meta de viaje o proyecto',  hor: '2 años',  monto: futuroPesos * 24, desc: 'Ahorra para ese sueño que tienes en mente.', rec: false }
+    { icon: 'shield', title: 'Tu fondo de emergencia',       hor: '6 meses', meses: 6,  monto: futuroPesos * 6,  desc: 'Un colchón para imprevistos sin endeudarte.', rec: true },
+    { icon: 'sprout', title: 'Tu primer fondo de inversión', hor: '1 año',   meses: 12, monto: futuroPesos * 12, desc: 'Tu dinero trabajando para ti en fondos Skandia.', rec: false },
+    { icon: 'plane',  title: 'Tu meta de viaje o proyecto',  hor: '2 años',  meses: 24, monto: futuroPesos * 24, desc: 'Ahorra para ese sueño que tienes en mente.', rec: false }
   ];
   state._carouselItems = items;
   const idx     = state._carouselIdx || 0;
@@ -1202,6 +1202,11 @@ function renderCarousel(futuroPesos) {
           ${it.rec ? '<span class="proyeccion__badge">Recomendado</span>' : ''}
         </div>
         <p class="proyeccion__desc">${it.desc}</p>
+        <button type="button" class="btn btn--ghost btn--small proyeccion__ver-proy"
+                onclick="abrirModalProyeccion(${futuroPesos}, ${it.meses})">
+          <i data-lucide="trending-up"></i> Ver proyección de crecimiento
+        </button>
+        <p class="proyeccion__disclaimer-card">*Este es el ahorro que podrías acumular. Con Skandia, tienes la posibilidad de hacerlo crecer con los rendimientos del portafolio.</p>
       </div>
     </div>
   `).join('');
@@ -1232,6 +1237,90 @@ function goCarousel(idx) {
   renderCarousel(state._futuroPesos || 0);
 }
 window.goCarousel = goCarousel;
+
+// ─── Modal proyección de ahorro ────────────────────────────────────────
+const TASA_EA = 0.0718;
+let _chartInstance = null;
+
+function abrirModalProyeccion(futuroPesos, meses) {
+  const modal = document.getElementById('modal-proyeccion');
+  if (!modal) return;
+  document.getElementById('modal-proyeccion-sub').textContent =
+    `Ahorrando ${formatCOP(futuroPesos)} al mes en el Portafolio Liquidez Colombia`;
+  modal.hidden = false;
+  document.body.style.overflow = 'hidden';
+  renderGraficaProyeccion(futuroPesos, meses);
+  refreshIcons();
+}
+window.abrirModalProyeccion = abrirModalProyeccion;
+
+function cerrarModalProyeccion() {
+  const modal = document.getElementById('modal-proyeccion');
+  if (modal) modal.hidden = true;
+  document.body.style.overflow = '';
+  if (_chartInstance) { _chartInstance.destroy(); _chartInstance = null; }
+}
+window.cerrarModalProyeccion = cerrarModalProyeccion;
+
+function renderGraficaProyeccion(futuroPesos, meses) {
+  const r = Math.pow(1 + TASA_EA, 1 / 12) - 1;
+  const labels = Array.from({ length: meses + 1 }, (_, m) => `Mes ${m}`);
+  const conSkandia  = labels.map((_, m) => m === 0 ? 0 : Math.round(futuroPesos * ((Math.pow(1 + r, m) - 1) / r)));
+  const sinInvertir = labels.map((_, m) => futuroPesos * m);
+
+  const canvas = document.getElementById('chart-proyeccion');
+  if (!canvas) return;
+  if (_chartInstance) { _chartInstance.destroy(); _chartInstance = null; }
+
+  const style = getComputedStyle(document.documentElement);
+  const c01 = style.getPropertyValue('--charts-c01').trim() || '#a1dd70';
+  const c02 = style.getPropertyValue('--charts-c02').trim() || '#a4d7e1';
+
+  _chartInstance = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Con Skandia',
+          data: conSkandia,
+          borderColor: c01,
+          backgroundColor: c01 + '22',
+          tension: 0.3,
+          pointRadius: 4,
+          fill: false
+        },
+        {
+          label: 'Sin invertir',
+          data: sinInvertir,
+          borderColor: c02,
+          backgroundColor: c02 + '22',
+          tension: 0.3,
+          pointRadius: 4,
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom' },
+        tooltip: {
+          callbacks: {
+            label: ctx => `${ctx.dataset.label}: ${formatCOP(ctx.parsed.y)}`
+          }
+        }
+      },
+      scales: {
+        y: {
+          ticks: { callback: v => formatCOP(v) },
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
 
 // ═══════════════════════════════════════════════════════════════════════
 //  PANTALLA 4 — CTAs DE AVANCE (R2)
@@ -1604,6 +1693,7 @@ document.addEventListener('keydown', (e) => {
     cerrarModalAsesor();
     cerrarModalConfirmacion();
     cerrarModalReinicio();
+    cerrarModalProyeccion();
   }
 });
 
