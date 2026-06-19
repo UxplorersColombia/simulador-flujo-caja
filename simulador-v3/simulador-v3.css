@@ -1165,6 +1165,19 @@ body[data-channel="publico"] .entrada-benefits {
   line-height: 1.4;
 }
 
+/* ── Mensajes de error de campo ─── */
+.field__error {
+  display: block;
+  font-size: 12px;
+  color: var(--feedback-error-dark, #b91c1c);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+.field__input--error {
+  border-color: var(--feedback-error, #dc2626) !important;
+  box-shadow: 0 0 0 1px var(--feedback-error, #dc2626);
+}
+
 /* Fila toggle ¿Eres cliente? */
 .lead-toggle-row {
   display: flex;

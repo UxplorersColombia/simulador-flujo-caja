@@ -232,9 +232,12 @@
                   class="field__input"
                   placeholder="Ej: María Alejandra Gómez"
                   autocomplete="name"
-                  oninput="onLeadInput()"
+                  maxlength="60"
+                  oninput="onLeadInput('lead-nombre')"
+                  onblur="onLeadBlur('lead-nombre')"
                 >
               </div>
+              <span id="lead-nombre-error" class="field__error" hidden></span>
             </div>
 
             <div class="field">
@@ -249,9 +252,12 @@
                   placeholder="nombre@correo.com"
                   autocomplete="email"
                   inputmode="email"
-                  oninput="onLeadInput()"
+                  maxlength="100"
+                  oninput="onLeadInput('lead-email')"
+                  onblur="onLeadBlur('lead-email')"
                 >
               </div>
+              <span id="lead-email-error" class="field__error" hidden></span>
             </div>
 
             <div class="field">
@@ -274,10 +280,13 @@
                     placeholder="300 123 4567"
                     inputmode="numeric"
                     autocomplete="tel"
-                    oninput="onLeadInput()"
+                    maxlength="10"
+                    oninput="onLeadInput('lead-telefono')"
+                    onblur="onLeadBlur('lead-telefono')"
                   >
                 </div>
               </div>
+              <span id="lead-telefono-error" class="field__error" hidden></span>
               <p class="lead-phone-hint">Tu teléfono nos permite agilizar el contacto con un asesor si lo necesitas.</p>
             </div>
 
@@ -759,6 +768,17 @@
 <div id="modal-asesor"       class="modal-overlay" hidden></div>
 <!-- ══ Modal confirmación de envío ══════════════════════════════════ -->
 <div id="modal-confirmacion" class="modal-overlay" hidden></div>
+<!-- ══ Modal confirmación de reinicio ═══════════════════════════════ -->
+<div id="modal-reinicio" class="modal-overlay" hidden onclick="if(event.target===this)cerrarModalReinicio()">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-reinicio-title">
+    <h2 class="modal__title" id="modal-reinicio-title">¿Volver a empezar?</h2>
+    <p class="modal__desc">Se borrarán todos los datos ingresados.</p>
+    <div class="modal__actions">
+      <button type="button" class="btn btn--ghost btn--grow" onclick="cerrarModalReinicio()">Cancelar</button>
+      <button type="button" class="btn btn--primary btn--grow" onclick="confirmarReinicio()">Sí, volver a empezar</button>
+    </div>
+  </div>
+</div>
 
 </div><!-- /page-shell -->
 

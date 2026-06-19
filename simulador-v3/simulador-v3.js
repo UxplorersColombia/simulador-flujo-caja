@@ -5,6 +5,7 @@
 // ─── Límites ──────────────────────────────────────────────────────────
 const MAX_FUENTES = 5;
 const MAX_OTROS   = 5;
+const MAX_VALOR   = 999_999_999;
 
 // ─── Defaults ─────────────────────────────────────────────────────────
 window.SIM_DEFAULTS = {
@@ -189,8 +190,50 @@ function irAtras() {
 window.irAtras = irAtras;
 
 // ─── Lead capture (canal público) ────────────────────────────────────
+const NOMBRE_RE = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s'\-]{2,60}$/;
+
 function _isValidEmail(v) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+  return /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(v);
+}
+
+function _validateNombre(v) {
+  if (!v) return 'Este campo es obligatorio';
+  if (v.length < 2) return 'Ingresa al menos 2 caracteres';
+  if (v.length > 60) return 'Máximo 60 caracteres';
+  if (!NOMBRE_RE.test(v)) return 'Solo se permiten letras, espacios y guiones';
+  return '';
+}
+
+function _validateEmail(v) {
+  if (!v) return 'Este campo es obligatorio';
+  if (!_isValidEmail(v)) return 'Correo inválido. Ej: nombre@dominio.com';
+  return '';
+}
+
+function _validateTelefono(v) {
+  const digits = v.replace(/\D/g, '');
+  if (!digits) return 'Este campo es obligatorio';
+  if (digits.length !== 10) return 'Ingresa los 10 dígitos de tu número';
+  return '';
+}
+
+function _setFieldError(fieldId, msg) {
+  const input = document.getElementById(fieldId);
+  const errEl = document.getElementById(fieldId + '-error');
+  if (!input || !errEl) return;
+  if (msg) {
+    input.classList.add('field__input--error');
+    errEl.textContent = msg;
+    errEl.hidden = false;
+  } else {
+    input.classList.remove('field__input--error');
+    errEl.textContent = '';
+    errEl.hidden = true;
+  }
+}
+
+function _clearFieldError(fieldId) {
+  _setFieldError(fieldId, '');
 }
 
 function validateLead() {
@@ -198,8 +241,17 @@ function validateLead() {
   const email   = (document.getElementById('lead-email')?.value   || '').trim();
   const tel     = (document.getElementById('lead-telefono')?.value || '').trim();
   const consent = document.getElementById('lead-consent-check')?.checked;
-  return nombre.length >= 2 && _isValidEmail(email) && tel.replace(/\D/g, '').length >= 7 && !!consent;
+  return !_validateNombre(nombre) && !_validateEmail(email) && !_validateTelefono(tel) && !!consent;
 }
+
+function onLeadBlur(fieldId) {
+  const input = document.getElementById(fieldId);
+  const v = (input?.value || '').trim();
+  if (fieldId === 'lead-nombre')   _setFieldError(fieldId, _validateNombre(v));
+  if (fieldId === 'lead-email')    _setFieldError(fieldId, _validateEmail(v));
+  if (fieldId === 'lead-telefono') _setFieldError(fieldId, _validateTelefono(v));
+}
+window.onLeadBlur = onLeadBlur;
 
 function _syncLeadButtonState() {
   if (state.channel !== 'publico') return;
@@ -210,7 +262,8 @@ function _syncLeadButtonState() {
   if (hlp) hlp.hidden   = ok;
 }
 
-function onLeadInput() {
+function onLeadInput(fieldId) {
+  if (fieldId) _clearFieldError(fieldId);
   _syncLeadButtonState();
 }
 window.onLeadInput = onLeadInput;
@@ -241,6 +294,35 @@ function repositionTip(box) {
   if (rect.right > vw - MARGIN)  shift = -(rect.right - (vw - MARGIN));
   if (rect.left + shift < MARGIN) shift = MARGIN - rect.left;
   if (shift !== 0) box.style.transform = `translateX(${shift}px)`;
+}
+
+function _getTipBox(btn) {
+  const id = btn.getAttribute('data-tip-for') || btn.nextElementSibling?.id;
+  return id ? document.getElementById(id) : btn.nextElementSibling;
+}
+
+// Registra hover en todos los .tip-trigger del documento
+function initTooltips() {
+  document.querySelectorAll('.tip-trigger').forEach(btn => {
+    if (btn._tipHoverBound) return; // evitar doble bind al re-render
+    btn._tipHoverBound = true;
+    btn.addEventListener('mouseenter', () => {
+      const box = _getTipBox(btn);
+      if (!box) return;
+      document.querySelectorAll('.tip-pop.visible').forEach(b => { b.classList.remove('visible'); b.style.transform = ''; });
+      box.classList.add('visible');
+      repositionTip(box);
+    });
+    btn.addEventListener('mouseleave', (e) => {
+      const box = _getTipBox(btn);
+      if (!box) return;
+      // Mantener abierto si el puntero se mueve hacia el propio tooltip
+      const related = e.relatedTarget;
+      if (related && box.contains(related)) return;
+      box.classList.remove('visible');
+      box.style.transform = '';
+    });
+  });
 }
 
 function toggleTip(btn) {
@@ -280,6 +362,7 @@ document.addEventListener('keydown', (e) => {
 // ─── Lucide refresh ──────────────────────────────────────────────────
 function refreshIcons() {
   if (window.lucide && lucide.createIcons) lucide.createIcons();
+  initTooltips();
 }
 
 // ─── Canal ───────────────────────────────────────────────────────────
@@ -355,9 +438,12 @@ function buildFuentes() {
                 class="field__input fuente-monto"
                 value="${montoFmt}"
                 autocomplete="off"
+                maxlength="13"
                 aria-required="${isMain ? 'true' : 'false'}"
                 oninput="onFuenteInput('${f.id}', this)"
+                onblur="onFuenteBlur('${f.id}', this)"
               >
+              <span class="fuente-input-error field__error" hidden></span>
             </div>
             <select
               class="periodo-select periodo-select--fuente"
@@ -396,8 +482,11 @@ function _updateAgregarFuenteBtn() {
 }
 
 function onFuenteInput(id, input) {
-  const num = parseInt(input.value.replace(/\D/g, ''), 10) || 0;
+  let num = parseInt(input.value.replace(/\D/g, ''), 10) || 0;
+  if (num > MAX_VALOR) num = MAX_VALOR;
   input.value = num > 0 ? num.toLocaleString('es-CO') : '';
+  const errEl = input.closest('.fuente-input-wrap')?.querySelector('.fuente-input-error');
+  if (errEl) { errEl.textContent = ''; errEl.hidden = true; }
   const f = state.fuentes.find(f => f.id === id);
   if (f) f.monto = num;
   recalcularSalario();
@@ -405,6 +494,20 @@ function onFuenteInput(id, input) {
   updateTotalIngresos();
 }
 window.onFuenteInput = onFuenteInput;
+
+function onFuenteBlur(id, input) {
+  const num = parseInt(input.value.replace(/\D/g, ''), 10) || 0;
+  const errEl = input.closest('.fuente-input-wrap')?.querySelector('.fuente-input-error');
+  if (!errEl) return;
+  if (num === 0) {
+    errEl.textContent = 'Ingresa un valor mayor a cero';
+    errEl.hidden = false;
+  } else {
+    errEl.textContent = '';
+    errEl.hidden = true;
+  }
+}
+window.onFuenteBlur = onFuenteBlur;
 
 function onFuentePeriodicidad(id, periodicidad) {
   const f = state.fuentes.find(f => f.id === id);
@@ -1251,7 +1354,23 @@ window.enviarPDF = enviarPDF;
 
 // ─── Reiniciar ────────────────────────────────────────────────────────
 function reiniciar() {
-  if (!window.confirm('¿Seguro que quieres volver a empezar? Se borrarán todos los datos ingresados.')) return;
+  const overlay = document.getElementById('modal-reinicio');
+  if (overlay) {
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+}
+window.reiniciar = reiniciar;
+
+function cerrarModalReinicio() {
+  const overlay = document.getElementById('modal-reinicio');
+  if (overlay) overlay.hidden = true;
+  document.body.style.overflow = '';
+}
+window.cerrarModalReinicio = cerrarModalReinicio;
+
+function confirmarReinicio() {
+  cerrarModalReinicio();
   state.vitales    = 30;
   state.deudas     = 20;
   state.gustos     = 15;
@@ -1262,12 +1381,28 @@ function reiniciar() {
   state.vitalesDetalle = [];
   state.deudasDetalle  = [];
   state._detalleOpen   = { vitales: false, deudas: false };
+  state._nextFuenteId  = 1;
+  state._nextOtroId    = 1;
+  state._carouselIdx   = 0;
+  state._futuroPesos   = 0;
+  // Limpiar formulario de lead en DOM
+  const nombre  = document.getElementById('lead-nombre');
+  const email   = document.getElementById('lead-email');
+  const tel     = document.getElementById('lead-telefono');
+  const consent = document.getElementById('lead-consent-check');
+  if (nombre)  nombre.value  = '';
+  if (email)   email.value   = '';
+  if (tel)     tel.value     = '';
+  if (consent) consent.checked = false;
+  // Limpiar errores visibles
+  document.querySelectorAll('.field__error').forEach(el => { el.textContent = ''; el.hidden = true; });
+  document.querySelectorAll('.field__input--error').forEach(el => el.classList.remove('field__input--error'));
   setCanal(state.channel);
   buildSliders();
   updateDistribucion();
   ir('s-entrada');
 }
-window.reiniciar = reiniciar;
+window.confirmarReinicio = confirmarReinicio;
 
 // ─── Touch swipe carousel ─────────────────────────────────────────────
 (function () {
@@ -1468,6 +1603,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     cerrarModalAsesor();
     cerrarModalConfirmacion();
+    cerrarModalReinicio();
   }
 });
 
