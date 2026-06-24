@@ -1181,7 +1181,7 @@ function renderCarousel(futuroPesos) {
   const items = [
     { icon: 'shield', title: 'Tu fondo de emergencia',       hor: '6 meses', meses: 6,  monto: futuroPesos * 6,  desc: 'Un colchón para imprevistos sin endeudarte.', rec: true },
     { icon: 'sprout', title: 'Tu primer fondo de inversión', hor: '1 año',   meses: 12, monto: futuroPesos * 12, desc: 'Tu dinero trabajando para ti en fondos Skandia.', rec: false },
-    { icon: 'plane',  title: 'Tu meta de viaje o proyecto',  hor: '2 años',  meses: 24, monto: futuroPesos * 24, desc: 'Ahorra para ese sueño que tienes en mente.', rec: false }
+    { icon: 'plane',  title: 'Tu meta de viaje o proyecto',  hor: '5 años',  meses: 60, monto: futuroPesos * 60, desc: 'Ahorra para ese sueño que tienes en mente.', rec: false }
   ];
   state._carouselItems = items;
   const idx     = state._carouselIdx || 0;
