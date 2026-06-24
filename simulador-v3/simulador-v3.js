@@ -1239,20 +1239,32 @@ function goCarousel(idx) {
 window.goCarousel = goCarousel;
 
 // ─── Modal proyección de ahorro ────────────────────────────────────────
-const TASA_EA = 0.0718;
+const TASA_EA = 0.0741;
 let _chartInstance = null;
+let _modalFuturoPesos = 0;
 
 function abrirModalProyeccion(futuroPesos, meses) {
   const modal = document.getElementById('modal-proyeccion');
   if (!modal) return;
+  _modalFuturoPesos = futuroPesos;
   document.getElementById('modal-proyeccion-sub').textContent =
-    `Ahorrando ${formatCOP(futuroPesos)} al mes en el Portafolio Liquidez Colombia`;
+    `Ahorrando ${formatCOP(futuroPesos)} al mes`;
+  modal.querySelectorAll('.modal__time-btn').forEach(btn => {
+    btn.classList.toggle('modal__time-btn--active', Number(btn.dataset.meses) === meses);
+  });
   modal.hidden = false;
   document.body.style.overflow = 'hidden';
   renderGraficaProyeccion(futuroPesos, meses);
   refreshIcons();
 }
 window.abrirModalProyeccion = abrirModalProyeccion;
+
+function cambiarHorizonteModal(meses, btn) {
+  document.querySelectorAll('.modal__time-btn').forEach(b => b.classList.remove('modal__time-btn--active'));
+  btn.classList.add('modal__time-btn--active');
+  renderGraficaProyeccion(_modalFuturoPesos, meses);
+}
+window.cambiarHorizonteModal = cambiarHorizonteModal;
 
 function cerrarModalProyeccion() {
   const modal = document.getElementById('modal-proyeccion');
@@ -1305,7 +1317,10 @@ function renderGraficaProyeccion(futuroPesos, meses) {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: { position: 'bottom' },
+        legend: {
+          position: 'bottom',
+          labels: { usePointStyle: true, pointStyle: 'circle', padding: 20 }
+        },
         tooltip: {
           callbacks: {
             label: ctx => `${ctx.dataset.label}: ${formatCOP(ctx.parsed.y)}`

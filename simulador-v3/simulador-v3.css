@@ -2018,7 +2018,50 @@ body[data-channel="publico"] .entrada-col--right { display: contents; }
 .modal__sub {
   font-size: 13px;
   color: var(--texts-medium);
-  margin: 4px 0 20px;
+  margin: 4px 0 4px;
+}
+.modal__tasa-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texts-medium);
+  background: var(--neutral-l02, #f7f7f7);
+  border-radius: 100px;
+  padding: 3px 10px;
+  margin-bottom: 14px;
+}
+.modal__time-selector {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.modal__time-btn {
+  flex: 1;
+  padding: 7px 0;
+  border: 1.5px solid var(--neutral-l05, #c5c5c5);
+  border-radius: 4px;
+  background: var(--neutral-00, #ffffff);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texts-medium);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+.modal__time-btn--active {
+  background: var(--primary-00, #00c73d);
+  border-color: var(--primary-00, #00c73d);
+  color: var(--neutral-00, #ffffff);
+}
+.modal__time-btn:hover:not(.modal__time-btn--active) {
+  border-color: var(--primary-00, #00c73d);
+  color: var(--primary-00, #00c73d);
+  box-shadow: 0 0 0 5px rgba(0, 199, 61, 0.1);
+}
+.modal__time-btn--active:hover {
+  background: var(--primary-d01, #03a835);
+  border-color: var(--primary-d01, #03a835);
+  box-shadow: 0 0 0 5px rgba(0, 199, 61, 0.15);
 }
 .modal__chart-wrap {
   position: relative;

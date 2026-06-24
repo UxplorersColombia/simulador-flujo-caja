@@ -777,6 +777,12 @@
     </button>
     <h2 class="modal__title" id="modal-proyeccion-title">Proyección de tu ahorro</h2>
     <p class="modal__sub" id="modal-proyeccion-sub"></p>
+    <span class="modal__tasa-badge">7.41% E.A. · Portafolio Liquidez Colombia</span>
+    <div class="modal__time-selector" role="group" aria-label="Horizonte de proyección">
+      <button class="modal__time-btn" data-meses="6" onclick="cambiarHorizonteModal(6, this)">6 meses</button>
+      <button class="modal__time-btn" data-meses="12" onclick="cambiarHorizonteModal(12, this)">1 año</button>
+      <button class="modal__time-btn" data-meses="24" onclick="cambiarHorizonteModal(24, this)">2 años</button>
+    </div>
     <div class="modal__chart-wrap">
       <canvas id="chart-proyeccion" aria-label="Gráfica de proyección de ahorro"></canvas>
     </div>
